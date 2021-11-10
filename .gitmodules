@@ -1,0 +1,9 @@
+[submodule "libs/libft"]
+	path = libs/libft
+	url = git@gitlab.com:42cursus-wetieven/01-libft.git
+[submodule "rsrc/slg_wetieven"]
+	path = rsrc/slg_wetieven
+	url = git@gitlab.com:42cursus-wetieven/25-so-long.git
+[submodule "rsrc/old_subj_draft"]
+	path = rsrc/old_subj_draft
+	url = git@gitlab.com:42cursus-wetieven/22-cub3d.git
