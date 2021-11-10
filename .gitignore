@@ -1,0 +1,11 @@
+.DS_Store
+a.out*
+*.sw*
+*.o
+*.a
+*.d
+*.vim
+*test*
+tags
+todo.md
+cub3d
