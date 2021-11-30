@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 08:44:09 by wetieven          #+#    #+#             */
-/*   Updated: 2021/11/26 10:11:43 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/11/26 20:16:17 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include "libft.h"
 
-/* # define CUB_DATA_RANGE 7 */
+# define CUB_DATA_RANGE 6
 # define TILE_RANGE 3
+# define MATCH 0
 
 typedef enum e_cub_key {
 	NOR,
@@ -24,8 +25,7 @@ typedef enum e_cub_key {
 	WES,
 	EAS,
 	FLO,
-	CEI,
-	MAP
+	CEI
 }	t_cub_key;
 
 typedef struct s_cub {
@@ -71,6 +71,6 @@ typedef struct s_fov {
 	t_game	*game;
 }	t_fov;
 
-typedef t_error	(*t_cub_parser)(char **line, t_cub *cub);
+typedef t_error	(*t_cub_parser)(t_cub *cub, char **line);
 
 #endif
