@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 08:44:09 by wetieven          #+#    #+#             */
-/*   Updated: 2021/11/26 20:16:17 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/03 17:41:36 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef enum e_cub_key {
 typedef struct s_cub {
 	char		*flag,
 	t_parser	fct,
-	void		*ctnt,
+	void		*ctnt
 }	t_cub;
 
 typedef enum e_tile {
@@ -72,5 +72,6 @@ typedef struct s_fov {
 }	t_fov;
 
 typedef t_error	(*t_cub_parser)(t_cub *cub, char **line);
+typedef t_error	(*t_cub_reader)(t_game *game, const char *cub_line, int gnl_status);
 
 #endif
