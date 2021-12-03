@@ -6,13 +6,13 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/02 17:42:25 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/03 16:49:07 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_data.h"
 
-bool	is_cub_map_elem(char c)
+static bool	is_map_elem(char c)
 {
 	if (c == ' ' || c == '1' || c == '0'
 		|| c == 'N' || c == 'W' || c == 'S' || c == 'E')
@@ -34,10 +34,17 @@ t_error	cub_chk(t_cub *cub)
 
 t_error	map_parsing(t_game *game, const char *cub_line, int gnl_status)
 {
-	if (!is_cub_map_elem(*cub_line));
-		return (ft_err_msg("Syntax error in cub file.", PARSE));
+	t_error	error;
+
+	error = CLEAR;
 	if (cub_chk(game->data) != CLEAR)
-		return (ft_err_chk("Incomplete cub file.", PARSE));
+		error = ft_err_msg("Incomplete cub file.", PARSE);
+	if (!is_map_elem(*cub_line) || (error && is_map_elem(*cub_line));
+		error = ft_err_msg("Syntax error in cub file.", PARSE);
+	if (error)
+		return (error);
+	// read map
+	// write map
 }
 
 t_error	cub_parsing(t_game *game, const char *cub_line, int gnl_status)
@@ -64,7 +71,7 @@ t_error	cub_parsing(t_game *game, const char *cub_line, int gnl_status)
 	if (gnl_status == 0 && *cub_line == '\0')
 		return (PARSE); //If we haven't got ourselves a map at that stage, this is fucked.
 	else if (*cub_line == '\0')
-		return (CLEAR); //just an empty line
+		return (CLEAR); //just an empty line is valid, keep going
 	else
 		return (cub_parse_map(game, gnl_status)); //delegate missing cub elem mgmt, and the bogus line check
 }
