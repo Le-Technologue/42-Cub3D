@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 08:44:09 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/03 17:41:36 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/03 21:12:59 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ typedef struct s_fov {
 	t_game	*game;
 }	t_fov;
 
+typedef t_error	(*t_cub_reader)(t_game *game, const char *cub_line,
+									t_nl_data *nl);
 typedef t_error	(*t_cub_parser)(t_cub *cub, char **line);
-typedef t_error	(*t_cub_reader)(t_game *game, const char *cub_line, int gnl_status);
 
 #endif

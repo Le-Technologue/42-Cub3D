@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/03 18:24:18 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/03 21:41:19 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_error	measure_map(t_game *game, const char *cub_line, int gnl_status)
 
 	error = CLEAR;
 	if (cub_chk(game->data) != CLEAR)
-		error = ft_err_msg("Incomplete cub file.", PARSE);
+		return (PARSE);
 	if (!is_map_elem(*cub_line) || (error && is_map_elem(*cub_line)));
 		error = ft_err_msg("Syntax error in cub file.", PARSE);
 	if (!error)
@@ -50,7 +50,7 @@ static t_error	measure_map(t_game *game, const char *cub_line, int gnl_status)
 	return (error);
 }
 
-t_error	cub_data(t_game *game, const char *cub_line, t_nl_data *nl)
+t_error	cub_data(t_game *game, const char *cub_line, t_newline *nl)
 {
 	static t_cub	cub[] = {
 		[NOR] = {.flag = "NO", .fct = &textr, .ctnt = NULL},
@@ -71,10 +71,10 @@ t_error	cub_data(t_game *game, const char *cub_line, t_nl_data *nl)
 			else
 				return (ft_err_msg("Extraneous cub element.", PARSE));
 	}
-	if (nl->status == 0 && *nl->line == '\0')
-		return (PARSE); //If we haven't got ourselves a map at that stage, this is fucked.
-	else if (*nl->line == '\0')
+	if (nl->status == 0 && !game->map.cols)
+		return (PARSE); //If we haven't got ourselves a mere candidate for a map at that stage, this is completely fucked.
+	if (*nl->line == '\0')
 		return (CLEAR); //just an empty line is valid, keep going
 	else
-		return (measure_map(game, nl)); //delegate missing cub elem mgmt, and the bogus line check
+		return (measure_map(game, nl)); //missing cub elem and bogus line checks are delegated to that function
 }
