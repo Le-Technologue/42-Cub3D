@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 15:50:22 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 16:44:17 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ bool	is_map_elem(char c)
 
 static t_error	map_parser(t_game *game, const char map_elem)
 {
-	t_tile				i;
 	static t_pars_swtch	map_pars_set[] = {
-	[OUTS] = {.flag = ' ', .parser = &put_outs},
-	[VOID] = {.flag = '0', .parser = &put_void},
-	[WALL] = {.flag = '1', .parser = &put_wall},
+	[OUTS] = {.flag = ' ', .parser = &put_tile},
+	[VOID] = {.flag = '0', .parser = &put_tile},
+	[WALL] = {.flag = '1', .parser = &put_tile},
 	[PL_N] = {.flag = 'N', .parser = &put_plyr},
 	[PL_W] = {.flag = 'W', .parser = &put_plyr},
 	[PL_S] = {.flag = 'S', .parser = &put_plyr},
 	[PL_E] = {.flag = 'E', .parser = &put_plyr},
 	};
+	t_tile				i;
 
 	i = 0;
 	while (i < TILE_RANGE)
@@ -54,16 +54,18 @@ t_error	cub_map(t_game *game, t_newline *nl)
 
 	i = 0;
 	error = CLEAR;
-	while (*nl->line[i] && !error)
-		error = map_parser(game, *nl->line[i++]);
+	game->map.rows == 0; //restarting count for plyr positioning
+	while (nl->line[i] && !error)
+		error = map_parser(game, nl->line[i++]);
 	if (!error)
 	{
-		line_len = ft_strlen(*nl->line);
+		line_len = ft_strlen(nl->line);
 		if (line_len < game->map.cols)
 		{
 			while (!error && line_len++ <= game->map.cols)
 				error = vctr_push(game->map.grid, OUTS);
 		}
+		game->map.rows++;
 	}
 	return (error);
 }
