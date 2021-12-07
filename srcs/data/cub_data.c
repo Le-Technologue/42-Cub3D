@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 16:51:02 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 17:01:26 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_error	cub_data(t_game *game, t_newline *nl)
 		}
 	}
 	/* if (nl->status == 0 && !game->map.cols) */
-	/* 	return (PARSE); //If we haven't got ourselves a mere candidate for a map at that stage, this is completely fucked. */
+	/* 	return (PARSE); //If we don't have a mere candidate for a map at that stage, this is completely fucked. but may we delegate that check after the gnl loop ?*/
 	if (*nl->line == '\0')
 		return (CLEAR); //just an empty line is valid, keep going
 	else

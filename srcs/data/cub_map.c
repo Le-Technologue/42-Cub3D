@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 16:50:52 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 16:58:04 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ t_error	cub_map(t_game *game, t_newline *nl)
 	size_t	i;
 	size_t	line_len;
 
+	if (!is_map_elem(*nl->line)) // skip over cub data lines
+		return (CLEAR);
 	i = 0;
 	error = CLEAR;
-	game->map.rows == 0; //restarting row count for plyr positioning
 	while (nl->line[i] && !error)
 		error = map_parser(game, nl->line[i++]);
 	if (!error)

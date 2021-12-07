@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 15:26:47 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 16:56:57 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@ t_error	cub_gnl_loop(t_game *game, t_cub_reader mode, t_newline *nl)
 	t_error	error;
 
 	error = CLEAR;
+	game->map.rows == 0; //count rows twice as we parse for plyr positioning
 	while (!error)
 	{
 		nl->status = get_next_line(nl->fd, &nl->line);
