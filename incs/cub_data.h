@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 08:44:09 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 12:39:46 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 15:19:11 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ typedef enum e_cub_key {
 }	t_cub_key;
 
 typedef struct s_cub {
-	char		*flag,
-	t_parser	fct,
-	void		*ctnt
+	char		*flag;
+	t_parser	fct;
+	void		*ctnt;
 }	t_cub;
 
 typedef struct s_plyr {
@@ -40,9 +40,9 @@ typedef struct s_plyr {
 }	t_plyr;
 
 typedef struct s_cub {
-	char			*flag,
-	t_cub_parser	fct,
-	void			*ctnt
+	char			*flag;
+	t_cub_parser	fct;
+	void			*ctnt;
 }	t_cub;
 
 typedef struct s_game {
@@ -61,8 +61,7 @@ typedef struct s_fov {
 	t_game	*game;
 }	t_fov;
 
-typedef t_error	(*t_cub_reader)(t_game *game, const char *cub_line,
-									t_newline *nl);
-typedef t_error	(*t_cub_parser)(t_cub *cub, char **line);
+typedef t_error	(*t_cub_parser)(t_cub *cub, char *line);
+typedef t_error	(*t_cub_reader)(t_game *game, t_newline *nl);
 
 #endif

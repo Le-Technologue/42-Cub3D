@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 12:38:16 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 15:50:22 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static t_error	map_parser(t_game *game, const char map_elem)
 {
 	t_tile				i;
 	static t_pars_swtch	map_pars_set[] = {
-		[OUTS] = {.flag = ' ', .parser = &put_outs},
-		[VOID] = {.flag = '0', .parser = &put_void},
-		[WALL] = {.flag = '1', .parser = &put_wall},
-		[PL_N] = {.flag = 'N', .parser = &put_plyr},
-		[PL_W] = {.flag = 'W', .parser = &put_plyr},
-		[PL_S] = {.flag = 'S', .parser = &put_plyr},
-		[PL_E] = {.flag = 'E', .parser = &put_plyr},
+	[OUTS] = {.flag = ' ', .parser = &put_outs},
+	[VOID] = {.flag = '0', .parser = &put_void},
+	[WALL] = {.flag = '1', .parser = &put_wall},
+	[PL_N] = {.flag = 'N', .parser = &put_plyr},
+	[PL_W] = {.flag = 'W', .parser = &put_plyr},
+	[PL_S] = {.flag = 'S', .parser = &put_plyr},
+	[PL_E] = {.flag = 'E', .parser = &put_plyr},
 	};
 
 	i = 0;
@@ -47,19 +47,23 @@ static t_error	map_parser(t_game *game, const char map_elem)
 	return (PARSE);
 }
 
-t_error	cub_map(t_game *game, const char *cub_line, t_newline *nl)
+t_error	cub_map(t_game *game, t_newline *nl)
 {
+	size_t	i;
 	size_t	line_len;
 
-	// build row logic featured in slg
-	while (*cub_line && !error)
-		error = map_parser(game, *cub_line);
-	if (error)
-		return (error);
-	line_len = ft_strlen(*cub_line);
-	if (line_len < game->map.cols)
+	i = 0;
+	error = CLEAR;
+	while (*nl->line[i] && !error)
+		error = map_parser(game, *nl->line[i++]);
+	if (!error)
 	{
-		while (line_len++ < game->map.cols) //chk that arithmetic
-			vctr_push(game->map.grid, OUTS);
+		line_len = ft_strlen(*nl->line);
+		if (line_len < game->map.cols)
+		{
+			while (!error && line_len++ <= game->map.cols)
+				error = vctr_push(game->map.grid, OUTS);
+		}
 	}
+	return (error);
 }

@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 10:43:05 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 15:26:47 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static t_error	cub_read_conf(t_game *game, const char *cub_path)
 {
 	t_error		error;
 	t_newline	nl;
-	t_gnl_nl
 
 	if (fd_opener(cub_path, &nl->fd) != CLEAR)
 	{
@@ -71,9 +70,11 @@ int	main(int ac, char **av)
 	if (file_ext_chk(av[1], ".cub") != CLEAR)
 		return (ft_err_msg("Config file extension must be \".cub\"", PARSE));
 	error = CLEAR;
+
 	// init game struct
 	if (!error)
 		error = cub_read_conf(game, av[1]);
 	if (!error)
 		// init fov struct upon success
+	return (cub_shutdown(error));
 }
