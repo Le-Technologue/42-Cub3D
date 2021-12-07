@@ -6,12 +6,20 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 15:51:09 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 16:51:02 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_data.h"
-#include "cub_map.h"
+
+static bool	is_map_elem(char c)
+{
+	if (c == ' ' || c == '1' || c == '0'
+		|| c == 'N' || c == 'W' || c == 'S' || c == 'E')
+		return (true);
+	else
+		return (false);
+}
 
 t_error	cub_chk(t_cub *cub)
 {

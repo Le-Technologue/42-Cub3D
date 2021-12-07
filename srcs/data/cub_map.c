@@ -6,27 +6,18 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 16:46:48 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 16:50:52 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_data.h"
 
-bool	is_map_elem(char c)
-{
-	if (c == ' ' || c == '1' || c == '0'
-		|| c == 'N' || c == 'W' || c == 'S' || c == 'E')
-		return (true);
-	else
-		return (false);
-}
-
-t_error	put_tile(t_game *game, t_tile tile)
+static t_error	put_tile(t_game *game, t_tile tile)
 {
 	return (vctr_push(game->map.grid, &tile));
 }
 
-t_error	put_plyr(t_game *game, t_tile tile)
+static t_error	put_plyr(t_game *game, t_tile tile)
 {
 	if (game->plyr.exists)
 		return (ft_err_msg("You can't have several players on the map", PARSE));
@@ -70,7 +61,7 @@ t_error	cub_map(t_game *game, t_newline *nl)
 
 	i = 0;
 	error = CLEAR;
-	game->map.rows == 0; //restarting count for plyr positioning
+	game->map.rows == 0; //restarting row count for plyr positioning
 	while (nl->line[i] && !error)
 		error = map_parser(game, nl->line[i++]);
 	if (!error)
