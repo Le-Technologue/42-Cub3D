@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/03 22:03:12 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 10:43:05 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_error	cub_gnl_loop(t_game *game, t_cub_reader mode, t_newline *nl)
 		if (nl->status <= 0)
 			break ;
 	}
-	if (!error)
+	if (!error && mode == cub_data) //does this last check works ?
 	{
 		if (cub_chk(game->data) != CLEAR)
 			return (ft_err_msg("The cub file is missing data.", PARSE));
@@ -63,6 +63,17 @@ static t_error	cub_read_conf(t_game *game, const char *cub_path)
 int	main(int ac, char **av)
 {
 	t_game	game;
+	t_fov	fov;
+	t_error	error;
 
-	cub_read_conf(game, av[1]);
+	if (ac != 2)
+		return (ft_err_msg("USAGE : ./cub3d <MAP_PATH>.cub", PARSE));
+	if (file_ext_chk(av[1], ".cub") != CLEAR)
+		return (ft_err_msg("Config file extension must be \".cub\"", PARSE));
+	error = CLEAR;
+	// init game struct
+	if (!error)
+		error = cub_read_conf(game, av[1]);
+	if (!error)
+		// init fov struct upon success
 }

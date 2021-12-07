@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 08:44:09 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/03 21:12:59 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 12:39:46 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 # include "libft.h"
 
-# define CUB_DATA_RANGE 6
-# define TILE_RANGE 3
 # define MATCH 0
+# define CUB_DATA_RANGE 6
 
 typedef enum e_cub_key {
 	NOR,
@@ -33,15 +32,6 @@ typedef struct s_cub {
 	t_parser	fct,
 	void		*ctnt
 }	t_cub;
-
-typedef enum e_tile {
-	VOID,
-	WALL,
-	PL_N,
-	PL_W,
-	PL_S,
-	PL_E
-}	t_tile;
 
 typedef struct s_plyr {
 	bool		exists;
@@ -72,7 +62,7 @@ typedef struct s_fov {
 }	t_fov;
 
 typedef t_error	(*t_cub_reader)(t_game *game, const char *cub_line,
-									t_nl_data *nl);
+									t_newline *nl);
 typedef t_error	(*t_cub_parser)(t_cub *cub, char **line);
 
 #endif

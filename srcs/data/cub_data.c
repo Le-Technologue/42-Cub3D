@@ -6,20 +6,12 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/03 21:41:19 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 12:38:46 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_data.h"
-
-static bool	is_map_elem(char c)
-{
-	if (c == ' ' || c == '1' || c == '0'
-		|| c == 'N' || c == 'W' || c == 'S' || c == 'E')
-		return (true);
-	else
-		return (false);
-}
+#include "cub_map.h"
 
 t_error	cub_chk(t_cub *cub)
 {
@@ -38,7 +30,7 @@ static t_error	measure_map(t_game *game, const char *cub_line, int gnl_status)
 
 	error = CLEAR;
 	if (cub_chk(game->data) != CLEAR)
-		return (PARSE);
+		error = PARSE;
 	if (!is_map_elem(*cub_line) || (error && is_map_elem(*cub_line)));
 		error = ft_err_msg("Syntax error in cub file.", PARSE);
 	if (!error)
