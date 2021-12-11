@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/11 16:36:42 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 16:47:59 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int	main(int ac, char **av)
 		return (ft_err_msg("Config file extension must be \".cub\"", PARSE));
 	game.data = NULL;
 	game.map.grid = NULL;
-	//init mlx too goddamit
+	game.fov = fov;
+	fov.mlx.lnk = mlx_init();
 	error = CLEAR;
 	if (!error)
 		error = cub_read_conf(game, av[1]);

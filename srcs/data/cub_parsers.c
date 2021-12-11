@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:37:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/11 16:37:35 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 18:06:47 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,30 @@ t_error	textr(t_game *game, t_cub_key elem, t_newline *nl)
 	return (CLEAR);
 }
 
-t_error	color(char **line, t_cub_data elem, t_cub *cub)
+t_error	color(t_game *game, t_cub_key elem, t_newline *nl)
 {
 	int	*trgb;
-	int buf;
-&txtrs
-	if (!alloc_safe(trgb, sizeof(int), 1, heap_top())
-		return (mem_alloc);
-	buf = ptr_atoi(line);
-	if (buf < 0 || buf > 255)
-		return (parse);
-	*trgb = buf << 16;
-	buf = ptr_atoi(line);
-	if (buf < 0 || buf > 255)
-		return (parse);
-	*trgb = buf << 8;
-	buf = ptr_atoi(line);
-	if (buf < 0 || buf > 255)
-		return (parse);
-	*trgb = buf;
-	cub[elem]->(int *)ctnt = trgb;
-	return (clear);
+	int	buf;
+	int	octet;
+	t_error	error;
+
+	trgb = malloc(sizeof(int));
+	if (!trgb)
+		return (MEM_ALLOC);
+	game->cub[elem].ctnt = trgb;
+	octet = 3;
+	error = CLEAR;
+	while (!error && octet--)
+	{
+		buf = ptr_atoi(&nl->line);
+		if (buf < 0 || buf > 255 || (octet > 0 && *nl->line != ',')
+				|| (octet == 0 && *nl->line != '\0'))
+			error = PARSE;
+		*trgb = *buf << octet * 8;
+		nl->line++;
+	}
+	if (error)
+		ft_printf("Error :\n%s color's octet number %d is not sound.\n",
+				game->cub[elem].flag, octet);
+	return (error);
 }
