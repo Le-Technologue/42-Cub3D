@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 16:56:57 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 16:36:42 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static t_error	cub_read_conf(t_game *game, const char *cub_path)
 		return (error);
 	if (fd_opener(cub_path, &nl->fd) != CLEAR)
 		return (ft_err_msg("No luck. You can't open a lousy fd.", FD_OPENING));
+	if (vctr_init(&game->map.grid, sizeof(t_tile), 512) != CLEAR)
+		return (MEM_ALLOC);
 	error = cub_gnl_loop(game, cub_map, &nl);
 	fd_killer(nl->fd);
 	return (error);
@@ -70,9 +72,10 @@ int	main(int ac, char **av)
 		return (ft_err_msg("USAGE : ./cub3d <MAP_PATH>.cub", PARSE));
 	if (file_ext_chk(av[1], ".cub") != CLEAR)
 		return (ft_err_msg("Config file extension must be \".cub\"", PARSE));
+	game.data = NULL;
+	game.map.grid = NULL;
+	//init mlx too goddamit
 	error = CLEAR;
-
-	// init game struct
 	if (!error)
 		error = cub_read_conf(game, av[1]);
 	if (!error)

@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 08:44:09 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 15:19:11 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 09:43:05 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_cub {
 }	t_cub;
 
 typedef struct s_game {
-	t_cub	data;
+	t_cub	*data;
 	t_map	map;
 	t_plyr	plyr;
 }	t_game;
