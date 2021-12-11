@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:37:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/11 18:06:47 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 18:09:11 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_error	textr(t_game *game, t_cub_key elem, t_newline *nl)
 
 t_error	color(t_game *game, t_cub_key elem, t_newline *nl)
 {
-	int	*trgb;
-	int	buf;
-	int	octet;
+	int		*trgb;
+	int		buf;
+	int		octet;
 	t_error	error;
 
 	trgb = malloc(sizeof(int));
@@ -58,13 +58,13 @@ t_error	color(t_game *game, t_cub_key elem, t_newline *nl)
 	{
 		buf = ptr_atoi(&nl->line);
 		if (buf < 0 || buf > 255 || (octet > 0 && *nl->line != ',')
-				|| (octet == 0 && *nl->line != '\0'))
+			|| (octet == 0 && *nl->line != '\0'))
 			error = PARSE;
 		*trgb = *buf << octet * 8;
 		nl->line++;
 	}
 	if (error)
-		ft_printf("Error :\n%s color's octet number %d is not sound.\n",
-				game->cub[elem].flag, octet);
+		ft_printf("Error :\n%s color's octet %d is not sound.\n",
+			game->cub[elem].flag, octet);
 	return (error);
 }
