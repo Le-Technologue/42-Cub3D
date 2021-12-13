@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/11 18:29:44 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/12 11:41:22 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ t_error	cub_shutdown(t_game *game, t_error cause)
 	if (cause == MEM_ALLOC)
 		ft_printf("Error\nMemory is full, consider closing Google Chrome.\n");
 	i = CUB_DATA_RANGE;
-	while (i--)
+	while (i-- > FLO)
 		if (game->cub[i].ctnt != NULL)
 			free(game->cub[i].ctnt);
+	while (i--)
+		if (game->cub[i].ctnt != NULL)
+			mlx_destroy_image(game->fov->mlx.lnk, game->cub[i].ctnt->img->ptr);
 	if (game->map.grid != NULL)
 		vctr_exit(game->map.grid);
 	//then some shit to take care of the fov, and before that some consideration whether to where we should put the fov structure wise

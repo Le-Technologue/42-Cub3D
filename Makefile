@@ -6,7 +6,7 @@
 #    By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/27 13:50:48 by wetieven          #+#    #+#              #
-#    Updated: 2021/11/05 12:49:43 by wetieven         ###   ########lyon.fr    #
+#    Updated: 2021/12/13 09:52:00 by wetieven         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 # === TARGETS === #
 # =============== #
 
-NAME		=	so_long
+NAME		=	cub3d
 
 ## ~~ Folders ~~ ##
 
@@ -25,12 +25,10 @@ ODIR		=	objs/
 # === SOURCES === #
 # =============== #
 
-SRCS		=	so_long.c \
-				slg_parsing.c \
-				slg_map_builders.c \
-				slg_textures.c \
-				slg_events.c \
-				slg_render.c
+SRCS		=	cub3d.c \
+				cub_data.c \
+				cub_parsers.c \
+				cub_map.c
 
 ## ~~ Folders ~~ ##
 
@@ -94,7 +92,8 @@ DEPFL		=	-MT $@ -MMD -MP -MF $(DDIR)$*.d
 
 CINCS		=	$(addprefix -I, $(HDIR))
 CLDIR		=	$(addprefix -L, $(LDIR))
-CLIBS		=	$(LNAMES:lib%.a=-l%) -framework OpenGL -framework AppKit #-lmlx -lX11 -lXext <- for Linux
+# CLIBS		=	$(LNAMES:lib%.a=-l%) -framework OpenGL -framework AppKit # Apple
+CLIBS		=	$(LNAMES:lib%.a=-l%) -lmlx -lX11 -lXext # Linux
 
 # ============= #
 # === RULES === #
@@ -148,7 +147,7 @@ fclean		:	$(LDIR) clean
 
 re			:	fclean all
 
-.PHONY : all make_libs norm bonus clean fclean re
+.PHONY : all norm clean fclean re#bonus make_libs
 
 $(DEPS)		:
 include $(wildcard $(DEPS))
