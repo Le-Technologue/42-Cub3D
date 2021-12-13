@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_map.h                                          :+:      :+:    :+:   */
+/*   cub_parsers.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/07 11:32:21 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/13 11:41:26 by wetieven         ###   ########lyon.fr   */
+/*   Created: 2021/12/13 11:20:06 by wetieven          #+#    #+#             */
+/*   Updated: 2021/12/13 11:24:10 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_MAP_H
-# define CUB_MAP_H
+#ifndef CUB_PARSERS_H
+# define CUB_PARSERS_H
 
 # include "cub3d.h"
 
-typedef t_error	(*t_map_builder)(t_game *game, t_tile tile);
-
-typedef struct s_map_swtch {
-	const char		flag;
-	t_map_builder	parser;
-}	t_map_swtch;
-
-t_error	cub_map(t_game *game, t_newline *nl);
+t_error	textr(t_game *game, t_cub_key elem, t_newline *nl);
+t_error	color(t_game *game, t_cub_key elem, t_newline *nl);
 
 #endif

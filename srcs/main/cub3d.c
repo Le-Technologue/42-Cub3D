@@ -6,26 +6,36 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/12 11:41:22 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/13 10:52:42 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
+#include "cub3d.h"
+#include "cub_data.h"
+#include "cub_map.h"
+
 t_error	cub_shutdown(t_game *game, t_error cause)
 {
-	int	i;
+	int		i;
+	t_txtr	*texture;
 
 	if (cause == MEM_ALLOC)
 		ft_printf("Error\nMemory is full, consider closing Google Chrome.\n");
 	i = CUB_DATA_RANGE;
 	while (i-- > FLO)
-		if (game->cub[i].ctnt != NULL)
-			free(game->cub[i].ctnt);
+		if (game->data[i].ctnt != NULL)
+			free(game->data[i].ctnt);
 	while (i--)
-		if (game->cub[i].ctnt != NULL)
-			mlx_destroy_image(game->fov->mlx.lnk, game->cub[i].ctnt->img->ptr);
+	{
+		texture = game->data[i].ctnt;
+		if (game->data[i].ctnt != NULL)
+			mlx_destroy_image(game->fov->mlx.lnk, texture->img.ptr);
+	}
 	if (game->map.grid != NULL)
 		vctr_exit(game->map.grid);
 	//then some shit to take care of the fov, and before that some consideration whether to where we should put the fov structure wise
+	return (cause);
 }
 
 t_error	cub_gnl_loop(t_game *game, t_cub_reader mode, t_newline *nl)
@@ -33,13 +43,13 @@ t_error	cub_gnl_loop(t_game *game, t_cub_reader mode, t_newline *nl)
 	t_error	error;
 
 	error = CLEAR;
-	game->map.rows == 0; //count rows twice as we parse for plyr positioning
+	game->map.rows = 0; //count rows twice as we parse for plyr positioning
 	while (!error)
 	{
 		nl->status = get_next_line(nl->fd, &nl->line);
 		if (nl->status >= 0)
-			error = mode(game, nl->line, nl->status);
-		free(&nl->line);
+			error = mode(game, nl);
+		free(nl->line);
 		if (nl->status <= 0)
 			break ;
 	}
@@ -62,21 +72,21 @@ static t_error	cub_read_conf(t_game *game, const char *cub_path)
 	t_error		error;
 	t_newline	nl;
 
-	if (fd_opener(cub_path, &nl->fd) != CLEAR)
+	if (fd_opener(cub_path, &nl.fd) != CLEAR)
 	{
-		ft_printf("Error\nThe map file path \"%s\" leads nowhere\n", map_path);
+		ft_printf("Error\nThe map file path \"%s\" leads nowhere\n", cub_path);
 		return (FD_OPENING);
 	}
 	error = cub_gnl_loop(game, cub_data, &nl);
-	fd_killer(nl->fd);
+	fd_killer(nl.fd);
 	if (error)
 		return (error);
-	if (fd_opener(cub_path, &nl->fd) != CLEAR)
+	if (fd_opener(cub_path, &nl.fd) != CLEAR)
 		return (ft_err_msg("No luck. You can't open a lousy fd.", FD_OPENING));
 	if (vctr_init(&game->map.grid, sizeof(t_tile), 512) != CLEAR)
 		return (MEM_ALLOC);
 	error = cub_gnl_loop(game, cub_map, &nl);
-	fd_killer(nl->fd);
+	fd_killer(nl.fd);
 	return (error);
 }
 
@@ -91,14 +101,14 @@ int	main(int ac, char **av)
 	if (file_ext_chk(av[1], ".cub") != CLEAR)
 		return (ft_err_msg("Config file extension must be \".cub\"", PARSE));
 	game.map.grid = NULL;
-	game.fov = fov;
+	game.fov = &fov;
 	fov.mlx.lnk = mlx_init();
-	if (!fov->mlx.lnk)
+	if (!fov.mlx.lnk)
 		return (MEM_ALLOC);
 	error = CLEAR;
 	if (!error)
-		error = cub_read_conf(game, av[1]);
+		error = cub_read_conf(&game, av[1]);
 	if (!error)
 		// init fov struct upon success
-	return (cub_shutdown(error));
+	return (cub_shutdown(&game, error));
 }

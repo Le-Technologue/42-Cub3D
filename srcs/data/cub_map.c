@@ -6,11 +6,12 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/07 16:58:04 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/13 11:43:49 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_data.h"
+#include "cub_map.h"
 
 static t_error	put_tile(t_game *game, t_tile tile)
 {
@@ -30,7 +31,7 @@ static t_error	put_plyr(t_game *game, t_tile tile)
 
 static t_error	map_parser(t_game *game, const char map_elem)
 {
-	static t_pars_swtch	map_pars_set[] = {
+	static t_map_swtch	map_pars_set[] = {
 	[OUTS] = {.flag = ' ', .parser = &put_tile},
 	[VOID] = {.flag = '0', .parser = &put_tile},
 	[WALL] = {.flag = '1', .parser = &put_tile},
@@ -44,8 +45,8 @@ static t_error	map_parser(t_game *game, const char map_elem)
 	i = 0;
 	while (i < TILE_RANGE)
 	{
-		if (map_elem == parser_set[i].flag)
-			return ((parser_set[i].parser)(game, i));
+		if (map_elem == map_pars_set[i].flag)
+			return ((map_pars_set[i].parser)(game, i));
 		i++;
 	}
 	ft_printf("Error\nInvalid flag \"%c\" on row %lu col %lu.\n",
@@ -58,6 +59,7 @@ t_error	cub_map(t_game *game, t_newline *nl)
 {
 	size_t	i;
 	size_t	line_len;
+	t_error	error;
 
 	if (!is_map_elem(*nl->line)) // skip over cub data lines
 		return (CLEAR);

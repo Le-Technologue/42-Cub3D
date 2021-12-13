@@ -6,13 +6,14 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/11 16:37:11 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/13 11:43:20 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_data.h"
+#include "cub_parsers.h"
 
-static bool	is_map_elem(char c)
+bool	is_map_elem(char c)
 {
 	if (c == ' ' || c == '1' || c == '0'
 		|| c == 'N' || c == 'W' || c == 'S' || c == 'E')
@@ -39,12 +40,12 @@ static t_error	measure_map(t_game *game, t_newline *nl)
 	error = CLEAR;
 	if (cub_chk(game->data) != CLEAR)
 		error = PARSE;
-	if (!is_map_elem(*cub_line) || (error && is_map_elem(*cub_line)))
+	if (!is_map_elem(*nl->line) || (error && is_map_elem(*nl->line)))
 		error = ft_err_msg("Syntax error in cub file.", PARSE);
 	if (!error)
 	{
-		if (ft_strlen(cub_line) > game->map.cols)
-			game->map.cols = ft_strlen(cub_line);
+		if (ft_strlen(nl->line) > game->map.cols)
+			game->map.cols = ft_strlen(nl->line);
 		game->map.rows++;
 	}
 	return (error);
@@ -69,7 +70,7 @@ t_error	cub_data(t_game *game, t_newline *nl)
 		if (ft_strncmp(cub[elem].flag, nl->line, 2) == MATCH)
 		{
 			if (!cub[elem].ctnt)
-				return ((cub[elem].fct)(game, elem, nl->line));
+				return ((cub[elem].fct)(game, elem, nl));
 			else
 				return (ft_err_msg("Extraneous cub element.", PARSE));
 		}
