@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/17 16:09:16 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 16:27:14 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ int	main(int ac, char **av)
 	if (file_ext_chk(av[1], ".cub") != CLEAR)
 		return (ft_err_msg("Config file extension must be \".cub\"", PARSE));
 	game.map.grid = NULL;
+	game.map.cols = 0;
 	game.map_offset = 0;
 	game.plyr.exists = false;
 	game.fov = &fov;
