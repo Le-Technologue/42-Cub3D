@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:20:06 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/13 11:24:10 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 11:29:57 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "cub3d.h"
 
-t_error	textr(t_game *game, t_cub_key elem, t_newline *nl);
-t_error	color(t_game *game, t_cub_key elem, t_newline *nl);
+t_error	textr(t_game *game, t_cub_key elem, char *line);
+t_error	color(t_game *game, t_cub_key elem, char *line);
 
 #endif

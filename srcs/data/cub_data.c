@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/13 11:43:20 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 12:10:15 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 bool	is_map_elem(char c)
 {
-	if (c == ' ' || c == '1' || c == '0'
+	if (ft_isspace(c) || c == '1' || c == '0'
 		|| c == 'N' || c == 'W' || c == 'S' || c == 'E')
 		return (true);
 	else
@@ -35,8 +35,10 @@ t_error	cub_chk(t_cub *cub)
 
 static t_error	measure_map(t_game *game, t_newline *nl)
 {
-	t_error	error;
+	t_error			error;
 
+	if (*nl->line == '\0')
+		return (CLEAR); //just an empty line is valid, keep going
 	error = CLEAR;
 	if (cub_chk(game->data) != CLEAR)
 		error = PARSE;
@@ -44,6 +46,8 @@ static t_error	measure_map(t_game *game, t_newline *nl)
 		error = ft_err_msg("Syntax error in cub file.", PARSE);
 	if (!error)
 	{
+		if (!game->map_offset)
+			game->map_offset = nl->count;
 		if (ft_strlen(nl->line) > game->map.cols)
 			game->map.cols = ft_strlen(nl->line);
 		game->map.rows++;
@@ -58,8 +62,8 @@ t_error	cub_data(t_game *game, t_newline *nl)
 	[WES] = {.flag = "WE", .fct = &textr, .ctnt = NULL},
 	[SOU] = {.flag = "SO", .fct = &textr, .ctnt = NULL},
 	[EAS] = {.flag = "EA", .fct = &textr, .ctnt = NULL},
-	[FLO] = {.flag = "F", .fct = &color, .ctnt = NULL},
-	[CEI] = {.flag = "C", .fct = &color, .ctnt = NULL},
+	[FLO] = {.flag = "F ", .fct = &color, .ctnt = NULL},
+	[CEI] = {.flag = "C ", .fct = &color, .ctnt = NULL},
 	};
 	t_cub_key		elem;
 
@@ -70,13 +74,10 @@ t_error	cub_data(t_game *game, t_newline *nl)
 		if (ft_strncmp(cub[elem].flag, nl->line, 2) == MATCH)
 		{
 			if (!cub[elem].ctnt)
-				return ((cub[elem].fct)(game, elem, nl));
+				return ((cub[elem].fct)(game, elem, nl->line));
 			else
 				return (ft_err_msg("Extraneous cub element.", PARSE));
 		}
 	}
-	if (*nl->line == '\0')
-		return (CLEAR); //just an empty line is valid, keep going
-	else
-		return (measure_map(game, nl)); //missing cub elem and bogus line checks are delegated to that function
+	return (measure_map(game, nl)); //missing cub elem and bogus line checks are delegated to that function
 }

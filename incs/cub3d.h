@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/13 11:25:14 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 11:56:38 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_plyr {
 typedef struct s_game	t_game;
 typedef struct s_cub	t_cub;
 
-typedef t_error	(*t_cub_parser)(t_game *game, t_cub_key elem, t_newline *nl);
+typedef t_error	(*t_cub_parser)(t_game *game, t_cub_key elem, char *line);
 
 typedef struct s_cub {
 	char			*flag;
@@ -68,6 +68,7 @@ typedef struct s_fov {
 
 typedef struct s_game {
 	t_cub	*data;
+	size_t	map_offset;
 	t_map	map;
 	t_plyr	plyr;
 	t_fov	*fov;

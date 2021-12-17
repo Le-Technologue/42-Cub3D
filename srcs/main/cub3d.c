@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/13 10:52:42 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 16:09:16 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,28 @@
 #include "cub3d.h"
 #include "cub_data.h"
 #include "cub_map.h"
+
+t_tile	*tile(t_game *game, size_t col, size_t row)
+{
+	return ((t_tile *)(game->map.grid->data + col * sizeof(t_tile)
+		+ (row * game->map.cols) * sizeof(t_tile)));
+}
+
+void	print_map_vctr(t_game *game, t_map map)
+{
+	size_t	c;
+	size_t	r;
+
+	r = 0;
+	while (r < map.rows)
+	{
+		c = 0;
+		while (c < map.cols)
+			ft_printf("%i", *tile(game, c++, r));
+		ft_printf("\n");
+		r++;
+	}
+}
 
 t_error	cub_shutdown(t_game *game, t_error cause)
 {
@@ -43,17 +65,24 @@ t_error	cub_gnl_loop(t_game *game, t_cub_reader mode, t_newline *nl)
 	t_error	error;
 
 	error = CLEAR;
+	nl->count = 0;
 	game->map.rows = 0; //count rows twice as we parse for plyr positioning
 	while (!error)
 	{
 		nl->status = get_next_line(nl->fd, &nl->line);
 		if (nl->status >= 0)
-			error = mode(game, nl);
-		free(nl->line);
+		{
+			nl->count++;
+			if (mode == cub_map && nl->count < game->map_offset)
+				;
+			else
+				error = mode(game, nl);
+			free(nl->line); // are we sure of this
+		}
 		if (nl->status <= 0)
 			break ;
 	}
-	if (!error && mode == cub_data) //does this last check works ?
+	if (!error && mode == cub_data)
 	{
 		if (cub_chk(game->data) != CLEAR)
 			return (ft_err_msg("The cub file is missing data.", PARSE));
@@ -101,6 +130,8 @@ int	main(int ac, char **av)
 	if (file_ext_chk(av[1], ".cub") != CLEAR)
 		return (ft_err_msg("Config file extension must be \".cub\"", PARSE));
 	game.map.grid = NULL;
+	game.map_offset = 0;
+	game.plyr.exists = false;
 	game.fov = &fov;
 	fov.mlx.lnk = mlx_init();
 	if (!fov.mlx.lnk)
@@ -109,6 +140,7 @@ int	main(int ac, char **av)
 	if (!error)
 		error = cub_read_conf(&game, av[1]);
 	if (!error)
+		print_map_vctr(&game, game.map);
 		// init fov struct upon success
 	return (cub_shutdown(&game, error));
 }
