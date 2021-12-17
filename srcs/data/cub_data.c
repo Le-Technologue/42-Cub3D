@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/17 12:10:15 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 16:20:14 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 bool	is_map_elem(char c)
 {
-	if (ft_isspace(c) || c == '1' || c == '0'
+	if (c == ' ' || c == '1' || c == '0'
 		|| c == 'N' || c == 'W' || c == 'S' || c == 'E')
 		return (true);
 	else
