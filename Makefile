@@ -6,7 +6,7 @@
 #    By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/27 13:50:48 by wetieven          #+#    #+#              #
-#    Updated: 2021/12/13 09:52:00 by wetieven         ###   ########lyon.fr    #
+#    Updated: 2021/12/17 09:00:47 by wetieven         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,13 +87,16 @@ CC			=	gcc
 WRNFL		=	-Wall -Wextra -Werror
 OPTFL		=	-O3 -march=native -fno-builtin
 DBGFL		=	-g
-CFLGS		=	$(WRNFL)#$(OPTFL) $(DBGFL)
+CFLGS		=	$(WRNFL) $(DBGFL)#$(OPTFL)
 DEPFL		=	-MT $@ -MMD -MP -MF $(DDIR)$*.d
 
 CINCS		=	$(addprefix -I, $(HDIR))
 CLDIR		=	$(addprefix -L, $(LDIR))
-# CLIBS		=	$(LNAMES:lib%.a=-l%) -framework OpenGL -framework AppKit # Apple
-CLIBS		=	$(LNAMES:lib%.a=-l%) -lmlx -lX11 -lXext # Linux
+ifeq ($(shell uname),Linux)
+	CLIBS		=	$(LNAMES:lib%.a=-l%) -lmlx -lX11 -lXext # Linux
+else
+	CLIBS		=	$(LNAMES:lib%.a=-l%) -framework OpenGL -framework AppKit # Apple
+endif
 
 # ============= #
 # === RULES === #
