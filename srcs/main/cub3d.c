@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/18 18:02:24 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/19 17:05:27 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,15 @@ int	main(int ac, char **av)
 	if (!error)
 		error = cub_read_conf(&game, av[1]);
 	if (!error)
-		print_map_vctr(&game, game.map);
+	{
+		print_map_vctr(game.map);
+		if (map_fill(game.map, game.plyr.pos.col, game.plyr.pos.row) != CLEAR)
+		{
+			ft_err_msg("The map is breached.", ERROR);
+			error = PARSE;
+		}
+		print_map_vctr(game.map);
+	}
 		// init fov struct upon success
 	return (cub_shutdown(&game, error));
 }

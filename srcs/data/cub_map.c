@@ -6,17 +6,17 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/18 18:03:51 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/19 17:09:59 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_data.h"
 #include "cub_map.h"
 
-t_tile	*tile(t_game *game, size_t col, size_t row)
+t_tile	*tile(t_map *map, size_t col, size_t row)
 {
-	return ((t_tile *)(game->map.grid->data + col * sizeof(t_tile)
-		+ (row * game->map.cols) * sizeof(t_tile)));
+	return ((t_tile *)(map->grid->data + col * sizeof(t_tile)
+		+ (row * map->cols) * sizeof(t_tile)));
 }
 
 static t_error	put_tile(t_game *game, t_tile tile)
@@ -86,7 +86,7 @@ t_error	cub_map(t_game *game, t_newline *nl)
 	return (error);
 }
 
-void	print_map_vctr(t_game *game, t_map map)
+void	print_map_vctr(t_map map)
 { // Map parsing tester
 	size_t	c;
 	size_t	r;
@@ -96,8 +96,28 @@ void	print_map_vctr(t_game *game, t_map map)
 	{
 		c = 0;
 		while (c < map.cols)
-			ft_printf("%i", *tile(game, c++, r));
+			ft_printf("%i", *tile(&map, c++, r));
 		ft_printf("\n");
 		r++;
 	}
+	ft_printf("\n");
+}
+
+int	map_fill(t_map map, size_t col, size_t row)
+{
+	if (col >= map.cols || row >= map.rows)
+		return (ERROR);
+	/* if (*tile(&map, col, row) == OUTS) */
+	/* 	return (ft_err_msg("Spaces aren't valid inside the map walls", ERROR)); */
+	else if (*tile(&map, col, row) == WALL)
+		return (CLEAR);
+	*tile(&map, col, row) = WALL;
+	return (map_fill(map, col - 1, row - 1)
+			+ map_fill(map, col, row - 1)
+			+ map_fill(map, col + 1, row - 1)
+			+ map_fill(map, col - 1, row)
+			+ map_fill(map, col + 1, row)
+			+ map_fill(map, col - 1, row + 1)
+			+ map_fill(map, col, row + 1)
+			+ map_fill(map, col + 1, row + 1));
 }
