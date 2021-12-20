@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 07:30:13 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/20 11:04:56 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 11:13:08 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_error	measure_map(t_game *game, t_newline *nl)
 	return (error);
 }
 
-static int	map_fill(t_map map, size_t col, size_t row)
+static int	map_fill(t_map map, size_t col, size_t row, t_tile fill)
 {
 	int		c;
 	int		r;
@@ -56,9 +56,9 @@ static int	map_fill(t_map map, size_t col, size_t row)
 		ft_printf("Error:\nMap breach found around col %i row %i\n", col, row);
 		return (PARSE);
 	}
-	else if (*tile(&map, col, row) == WALL || *tile(&map, col, row) == FILL)
+	else if (*tile(&map, col, row) == WALL || *tile(&map, col, row) == fill)
 		return (CLEAR);
-	*tile(&map, col, row) = FILL;
+	*tile(&map, col, row) = fill;
 	error = CLEAR;
 	r = -1;
 	while (!error && r <= 1)
@@ -66,7 +66,7 @@ static int	map_fill(t_map map, size_t col, size_t row)
 		c = -1;
 		while (!error && c <= 1)
 		{
-			error = map_fill(map, col + c, row + r);
+			error = map_fill(map, col + c, row + r, fill);
 			c++;
 		}
 		r++;
@@ -77,20 +77,16 @@ static int	map_fill(t_map map, size_t col, size_t row)
 t_error	map_breached(t_game *game)
 {
 	t_error	error;
-	t_map	test_map;
 
-	error = vctr_init(&test_map.grid, sizeof(t_tile), game->map.grid->entries);
+	error = map_fill(game->map, game->plyr.pos.col, game->plyr.pos.row, FILL);
+	ft_printf("Map fill :\n"); //TESTING
+	print_map_vctr(game->map); //TESTING
 	if (error)
 		return (error);
-	test_map.cols = game->map.cols;
-	test_map.rows = game->map.rows;
-	ft_memcpy(test_map.grid->data, game->map.grid->data,
-			game->map.grid->entries * sizeof(t_tile));
-	map_fill(test_map, game->plyr.pos.col, game->plyr.pos.row);
-	ft_printf("Map fill :\n"); //TESTING
-	print_map_vctr(test_map); //TESTING
-	vctr_exit(test_map.grid);
-	return (error);
+	map_fill(game->map, game->plyr.pos.col, game->plyr.pos.row, VOID);
+	ft_printf("Map unfill :\n"); //TESTING
+	print_map_vctr(game->map); //TESTING
+	return (CLEAR);
 }
 
 void	print_map_vctr(t_map map)
