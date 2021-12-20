@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 07:30:13 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/20 08:06:27 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 09:06:17 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ t_error	map_breached(t_game *game)
 	print_map_vctr(game->map);
 	if (map_fill(game->map, game->plyr.pos.col, game->plyr.pos.row) != CLEAR)
 		return (ft_err_msg("The map is breached.", PARSE));
-	print_map_vctr(game->map);
 	return (CLEAR);
 }
 

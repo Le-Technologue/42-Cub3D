@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/20 08:07:11 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 09:50:08 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,19 @@ t_error	cub_shutdown(t_game *game, t_error cause)
 	t_txtr	*texture;
 
 	if (cause == MEM_ALLOC)
-		ft_printf("Error\nMemory is full, consider closing Google Chrome.\n");
+		ft_printf("Error\nMemory saturated, consider closing Google Chrome.\n");
 	i = CUB_DATA_RANGE;
-	while (i-- > FLO)
-		if (game->data[i].ctnt != NULL)
-			free(game->data[i].ctnt);
-	while (i--)
+	if (game->data)
 	{
-		texture = game->data[i].ctnt;
-		if (game->data[i].ctnt != NULL)
-			mlx_destroy_image(game->fov->mlx.lnk, texture->img.ptr);
+		while (i-- > FLO)
+			if (game->data[i].ctnt != NULL)
+				free(game->data[i].ctnt);
+		while (i--)
+		{
+			texture = game->data[i].ctnt;
+			if (game->data[i].ctnt != NULL)
+				mlx_destroy_image(game->fov->mlx.lnk, texture->img.ptr);
+		}
 	}
 	if (game->map.grid != NULL)
 		vctr_exit(game->map.grid);
@@ -80,6 +83,7 @@ static t_error	cub_read_conf(t_game *game, const char *cub_path)
 	t_error		error;
 	t_newline	nl;
 
+	game->data = NULL;
 	if (fd_opener(cub_path, &nl.fd) != CLEAR)
 	{
 		ft_printf("Error\nThe map file path \"%s\" leads nowhere\n", cub_path);
@@ -90,7 +94,7 @@ static t_error	cub_read_conf(t_game *game, const char *cub_path)
 	if (error)
 		return (error);
 	if (fd_opener(cub_path, &nl.fd) != CLEAR)
-		return (ft_err_msg("No luck. You can't open a lousy fd.", FD_OPENING));
+		return (ft_err_msg("Memory full, we can't even open a fd.", MEM_ALLOC));
 	if (vctr_init(&game->map.grid, sizeof(t_tile), 512) != CLEAR)
 		return (MEM_ALLOC);
 	error = cub_gnl_loop(game, cub_map, &nl);
@@ -121,7 +125,9 @@ int	main(int ac, char **av)
 	error = CLEAR;
 	if (!error)
 		error = cub_read_conf(&game, av[1]);
-	print_map_vctr(game.map);
-	// init fov struct upon success
+	if (error == PARSE) // TESTING
+		print_map_vctr(game.map);
+	/* if (!error) */
+		// init fov struct upon success
 	return (cub_shutdown(&game, error));
 }
