@@ -6,12 +6,13 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/20 07:37:09 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 08:04:15 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_data.h"
 #include "cub_map.h"
+#include "cub_map_checks.h"
 
 t_tile	*tile(t_map *map, size_t col, size_t row)
 {
@@ -84,21 +85,4 @@ t_error	cub_map(t_game *game, t_newline *nl)
 		game->map.rows++;
 	}
 	return (error);
-}
-
-void	print_map_vctr(t_map map)
-{ // Map parsing tester
-	size_t	c;
-	size_t	r;
-
-	r = 0;
-	while (r < map.rows)
-	{
-		c = 0;
-		while (c < map.cols)
-			ft_printf("%i", *tile(&map, c++, r));
-		ft_printf("\n");
-		r++;
-	}
-	ft_printf("\n");
 }

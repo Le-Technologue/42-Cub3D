@@ -6,7 +6,7 @@
 #    By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/27 13:50:48 by wetieven          #+#    #+#              #
-#    Updated: 2021/12/17 09:19:55 by wetieven         ###   ########lyon.fr    #
+#    Updated: 2021/12/20 08:02:27 by wetieven         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,8 @@ ODIR		=	objs/
 
 SRCS		=	cub3d.c \
 				cub_data.c \
-				cub_parsers.c \
-				cub_map.c
+				cub_map.c \
+				cub_map_checks.c
 
 ## ~~ Folders ~~ ##
 

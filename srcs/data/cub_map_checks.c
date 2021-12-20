@@ -6,9 +6,13 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 07:30:13 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/20 07:45:18 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 08:06:27 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "cub_data.h"
+#include "cub_map.h"
+#include "cub_map_checks.h"
 
 bool	is_map_elem(char c)
 {
@@ -58,4 +62,30 @@ static int	map_fill(t_map map, size_t col, size_t row)
 			+ map_fill(map, col - 1, row + 1)
 			+ map_fill(map, col, row + 1)
 			+ map_fill(map, col + 1, row + 1));
+}
+
+t_error	map_breached(t_game *game)
+{
+	print_map_vctr(game->map);
+	if (map_fill(game->map, game->plyr.pos.col, game->plyr.pos.row) != CLEAR)
+		return (ft_err_msg("The map is breached.", PARSE));
+	print_map_vctr(game->map);
+	return (CLEAR);
+}
+
+void	print_map_vctr(t_map map)
+{ // Map parsing tester
+	size_t	c;
+	size_t	r;
+
+	r = 0;
+	while (r < map.rows)
+	{
+		c = 0;
+		while (c < map.cols)
+			ft_printf("%i", *tile(&map, c++, r));
+		ft_printf("\n");
+		r++;
+	}
+	ft_printf("\n");
 }

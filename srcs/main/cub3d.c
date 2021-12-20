@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/19 17:05:27 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 08:07:11 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "cub3d.h"
 #include "cub_data.h"
 #include "cub_map.h"
+#include "cub_map_checks.h"
 
 t_error	cub_shutdown(t_game *game, t_error cause)
 {
@@ -94,6 +95,8 @@ static t_error	cub_read_conf(t_game *game, const char *cub_path)
 		return (MEM_ALLOC);
 	error = cub_gnl_loop(game, cub_map, &nl);
 	fd_killer(nl.fd);
+	if (!error)
+		error = map_breached(game);
 	return (error);
 }
 
@@ -118,16 +121,7 @@ int	main(int ac, char **av)
 	error = CLEAR;
 	if (!error)
 		error = cub_read_conf(&game, av[1]);
-	if (!error)
-	{
-		print_map_vctr(game.map);
-		if (map_fill(game.map, game.plyr.pos.col, game.plyr.pos.row) != CLEAR)
-		{
-			ft_err_msg("The map is breached.", ERROR);
-			error = PARSE;
-		}
-		print_map_vctr(game.map);
-	}
-		// init fov struct upon success
+	print_map_vctr(game.map);
+	// init fov struct upon success
 	return (cub_shutdown(&game, error));
 }
