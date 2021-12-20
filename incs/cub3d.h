@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/17 11:56:38 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 10:41:52 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef enum e_tile {
 	PL_N,
 	PL_W,
 	PL_S,
-	PL_E
+	PL_E,
+	FILL
 }	t_tile;
 
 typedef struct s_plyr {

@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/20 09:50:08 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 10:11:48 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ static t_error	cub_read_conf(t_game *game, const char *cub_path)
 		return (MEM_ALLOC);
 	error = cub_gnl_loop(game, cub_map, &nl);
 	fd_killer(nl.fd);
+	ft_printf("Parsed map :\n"); //TESTING
+	print_map_vctr(game->map); // TESTING
 	if (!error)
 		error = map_breached(game);
 	return (error);
@@ -125,8 +127,6 @@ int	main(int ac, char **av)
 	error = CLEAR;
 	if (!error)
 		error = cub_read_conf(&game, av[1]);
-	if (error == PARSE) // TESTING
-		print_map_vctr(game.map);
 	/* if (!error) */
 		// init fov struct upon success
 	return (cub_shutdown(&game, error));

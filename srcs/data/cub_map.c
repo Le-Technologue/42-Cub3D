@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/20 08:04:15 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 10:41:09 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static t_error	map_parser(t_game *game, const char map_elem)
 	[PL_W] = {.flag = 'W', .parser = &put_plyr},
 	[PL_S] = {.flag = 'S', .parser = &put_plyr},
 	[PL_E] = {.flag = 'E', .parser = &put_plyr},
+	[FILL] = {.flag = '7', .parser = NULL},
 	};
 	t_tile				i;
 
