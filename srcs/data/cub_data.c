@@ -6,21 +6,13 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/18 17:53:38 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 07:46:08 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
 #include "cub_data.h"
-#include "cub_parsers.h"
-
-bool	is_map_elem(char c)
-{
-	if (c == ' ' || c == '1' || c == '0'
-		|| c == 'N' || c == 'W' || c == 'S' || c == 'E')
-		return (true);
-	else
-		return (false);
-}
+#include "cub_map_checks.h"
 
 t_error	cub_completion(t_cub *cub)
 {
@@ -33,25 +25,58 @@ t_error	cub_completion(t_cub *cub)
 	return (CLEAR);
 }
 
-static t_error	measure_map(t_game *game, t_newline *nl)
+static t_error	textr(t_game *game, t_cub_key elem, char *line)
 {
-	t_error			error;
+	t_txtr	*txtr;
 
-	if (*nl->line == '\0')
-		return (CLEAR); //just an empty line is valid, keep going
-	error = CLEAR;
-	if (cub_completion(game->data) != CLEAR)
-		error = PARSE;
-	if (!is_map_elem(*nl->line) || (error && is_map_elem(*nl->line)))
-		error = ft_err_msg("Syntax error in cub file.", PARSE);
-	if (!error)
+	if (!ft_isspace(line[2]))
 	{
-		if (!game->map_offset)
-			game->map_offset = nl->count;
-		if (ft_strlen(nl->line) > game->map.cols)
-			game->map.cols = ft_strlen(nl->line);
-		game->map.rows++;
+		ft_printf("Error :\nA space should follow \"%s\".\n",
+				game->data[elem].flag);
+		return (PARSE);
 	}
+	txtr = malloc(sizeof(t_txtr));
+	if (!txtr)
+		return (MEM_ALLOC);
+	txtr->img.ptr = mlx_xpm_file_to_image(game->fov->mlx.lnk, &line[3],
+			&txtr->width, &txtr->height);
+	if (!txtr->img.ptr)
+	{
+		ft_printf("\"%s\" isn't a valid xpm file or doesn't exists.", &line[3]);
+		return (PARSE);
+	}
+	txtr->img.addr = (int *)mlx_get_data_addr(txtr->img.ptr, &txtr->img.bpp,
+			&txtr->img.line_size, &txtr->img.endian);
+	game->data[elem].ctnt = txtr;
+	return (CLEAR);
+}
+
+static t_error	color(t_game *game, t_cub_key elem, char *line)
+{
+	int		*trgb;
+	int		buf;
+	int		octet;
+	t_error	error;
+
+	trgb = malloc(sizeof(int));
+	if (!trgb)
+		return (MEM_ALLOC);
+	game->data[elem].ctnt = trgb;
+	line += 2;
+	octet = 3;
+	error = CLEAR;
+	while (!error && octet--)
+	{
+		buf = ptr_atoi(&line);
+		if (buf < 0 || buf > 255 || (octet > 0 && *line != ',')
+			|| (octet == 0 && *line != '\0'))
+			error = PARSE;
+		*trgb = buf << octet * 8;
+		line++;
+	}
+	if (error)
+		ft_printf("Error :\n%scolor's octet %d is not sound.\n",
+			game->data[elem].flag, octet);
 	return (error);
 }
 

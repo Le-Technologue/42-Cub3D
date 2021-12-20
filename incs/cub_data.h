@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 08:44:09 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/18 17:52:50 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 07:44:01 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 typedef t_error	(*t_cub_reader)(t_game *game, t_newline *nl);
 
 t_error	cub_completion(t_cub *cub);
-bool	is_map_elem(char c);
 t_error	cub_data(t_game *game, t_newline *nl);
 
 #endif

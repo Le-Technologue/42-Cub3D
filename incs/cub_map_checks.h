@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_parsers.h                                      :+:      :+:    :+:   */
+/*   cub_map_checks.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 11:20:06 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/17 11:29:57 by wetieven         ###   ########lyon.fr   */
+/*   Created: 2021/12/20 07:42:29 by wetieven          #+#    #+#             */
+/*   Updated: 2021/12/20 07:45:45 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_PARSERS_H
-# define CUB_PARSERS_H
+#ifndef CUB_MAP_CHECKS_H
+# define CUB_MAP_CHECKS_H
 
 # include "cub3d.h"
 
-t_error	textr(t_game *game, t_cub_key elem, char *line);
-t_error	color(t_game *game, t_cub_key elem, char *line);
+bool	is_map_elem(char c);
+t_error	measure_map(t_game *game, t_newline *nl);
 
 #endif

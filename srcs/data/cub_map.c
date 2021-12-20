@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/19 17:09:59 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 07:37:09 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,23 +101,4 @@ void	print_map_vctr(t_map map)
 		r++;
 	}
 	ft_printf("\n");
-}
-
-int	map_fill(t_map map, size_t col, size_t row)
-{
-	if (col >= map.cols || row >= map.rows)
-		return (ERROR);
-	/* if (*tile(&map, col, row) == OUTS) */
-	/* 	return (ft_err_msg("Spaces aren't valid inside the map walls", ERROR)); */
-	else if (*tile(&map, col, row) == WALL)
-		return (CLEAR);
-	*tile(&map, col, row) = WALL;
-	return (map_fill(map, col - 1, row - 1)
-			+ map_fill(map, col, row - 1)
-			+ map_fill(map, col + 1, row - 1)
-			+ map_fill(map, col - 1, row)
-			+ map_fill(map, col + 1, row)
-			+ map_fill(map, col - 1, row + 1)
-			+ map_fill(map, col, row + 1)
-			+ map_fill(map, col + 1, row + 1));
 }
