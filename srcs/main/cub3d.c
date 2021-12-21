@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/20 11:21:43 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 11:57:00 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,29 @@ t_error	cub_shutdown(t_game *game, t_error cause)
 		vctr_exit(game->map.grid);
 	//then some shit to take care of the fov, and before that some consideration whether to where we should put the fov structure wise
 	return (cause);
+}
+
+static t_error	cub_launch_game(t_game *game, t_fov *fov)
+{
+	t_img	frm;
+
+	game->fov = fov;
+	// SCALE GRAPHICS
+	fov->mlx.win = mlx_new_window(fov->mlx.lnk, fov->width, fov->height,
+			"cub3d");
+	if (!fov->mlx.win)
+		return (MEM_ALLOC);
+	fov->frm = &frm;
+	fov->frm->ptr = mlx_new_image(fov->mlx.lnk, fov->width, fov->height);
+	fov->frm->addr = (int *)mlx_get_data_addr(fov->frm->ptr, &fov->frm->bpp,
+			&fov->frm->line_size, &fov->frm->endian);
+	if (!fov->frm->ptr)
+	{
+		mlx_destroy_window(fov->mlx.lnk, fov->mlx.win);
+		return (MEM_ALLOC);
+	}
+	// RUN HOOKS
+	return (CLEAR);
 }
 
 t_error	cub_gnl_loop(t_game *game, t_cub_reader mode, t_newline *nl)
@@ -125,7 +148,7 @@ int	main(int ac, char **av)
 	error = CLEAR;
 	if (!error)
 		error = cub_read_conf(&game, av[1]);
-	/* if (!error) */
-		// init fov struct upon success
+	if (!error)
+		error = cub_launch_game(&game, &fov);
 	return (cub_shutdown(&game, error));
 }
