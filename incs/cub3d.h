@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/20 10:41:52 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 14:23:14 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include "libft.h"
+# include "cub_render.h"
 
 # define MATCH 0
 
@@ -57,15 +58,6 @@ typedef struct s_cub {
 	t_cub_parser	fct;
 	void			*ctnt;
 }	t_cub;
-
-typedef struct s_fov {
-	t_mlx	mlx;
-	size_t	height;
-	size_t	width;
-	t_img	*frm;
-	/* size_t	tile_hgt; */
-	/* size_t	tile_wid; */
-}	t_fov;
 
 typedef struct s_game {
 	t_cub	*data;

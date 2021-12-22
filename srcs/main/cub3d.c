@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/21 16:38:31 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 13:30:19 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_error	cub_shutdown(t_game *game, t_error cause)
 /* 	t_img	frm; */
 
 /* 	game->fov = fov; */
-/* 	// SCALE GRAPHICS */
+/* 	// SCALE GRAPHICS ? */
 /* 	fov->mlx.win = mlx_new_window(fov->mlx.lnk, fov->width, fov->height, */
 /* 	if (!fov->mlx.win) */
 /* 		return (MEM_ALLOC); */
