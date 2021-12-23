@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 14:19:21 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/23 16:56:18 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 17:06:58 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 typedef struct s_ray {
 	t_vf2d	dir;
 	t_vi2d	step;
+	t_vf2d	delta;
 	t_vf2d	travel_along;
 	t_pos	reached;
 	float	len;

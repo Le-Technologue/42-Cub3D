@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:08:27 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/23 16:56:09 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 17:06:56 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 void	set_ray(t_ray *ray)
@@ -27,5 +27,7 @@ void	cast_rays(t_game *game, t_fov *fov)
 		ray.dir.y = fov->cam.dir.y + fov->cam.plane.y * fov->grid.x;
 		ray.reached.col = game->plyr.pos.col;
 		ray.reached.row = game->plyr.pos.row;
+		ray.delta.x = fabs(1 / ray.dir.x);
+		ray.delta.y = fabs(1 / ray.dir.y);
 	}
 }
