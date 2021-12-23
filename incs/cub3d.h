@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/22 14:23:14 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 14:07:04 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef enum e_tile {
 typedef struct s_plyr {
 	bool		exists;
 	t_pos		pos;
+	t_vc2d		delta;
 	t_tile		orientation;
 }	t_plyr;
 
