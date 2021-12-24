@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 14:19:21 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/23 17:06:58 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 19:11:31 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef struct s_ray {
 	t_vf2d	dir;
 	t_vi2d	step;
 	t_vf2d	delta;
-	t_vf2d	travel_along;
+	t_vf2d	trvl_along;
 	t_pos	reached;
 	float	len;
 }	t_ray;
@@ -43,7 +43,7 @@ typedef struct s_fov {
 	t_mlx	mlx;
 	size_t	height;
 	size_t	width;
-	vi2d	grid;
+	vi2d	pixel;
 	t_img	*frm;
 	/* size_t	tile_hgt; */
 	/* size_t	tile_wid; */

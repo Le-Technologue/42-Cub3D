@@ -6,15 +6,59 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:08:27 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/23 17:06:56 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 19:48:37 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-void	set_ray(t_ray *ray)
+
+/* void	set_ray(t_ray *ray) */
+/* { */
+/* 	ray->len = 0; */
+/* } */
+
+void	dda(t_map *map, t_ray *ray)
 {
-	ray->len = 0;
+	while(*tile(map, ray->reached.col, ray->reached.row) != WALL)
+	{
+		if (ray->trvl_along.x < ray->trvl_along.y)
+		{
+			ray->trvl_along.x += ray->delta.x;
+			ray->reached.col += ray->step.x;
+			// Siding ?
+		}
+		else
+		{
+			ray->trvl_along.y += ray->delta.y;
+			ray->reached.row += ray->step.y;
+			// Siding ?
+		}
+	}
 }
 
-void	cast_rays(t_game *game, t_fov *fov)
+void	reach_grid(t_plyr plyr, t_ray *ray)
+{
+	if (ray->dir.x < 0)
+	{
+		ray->step.x = -1;
+		ray->trvl_along.x = (plyr.pos.col - ray->reached.x) * ray->delta.x;
+	}
+	else
+	{
+		ray->step.x = 1;
+		ray->trvl_along.x = (ray->reached.x + 1 - plyr.pos.col) * ray->delta.x;
+	}
+	if (ray->dir.y < 0)
+	{
+		ray->step.y = -1;
+		ray->trvl_along.y = (plyr.pos.row - ray->map.y) * ray->delta.y;
+	}
+	else
+	{
+		ray->step.y = 1;
+		ray->trvl_along.y = (ray->map.y + 1 - plyr.pos.y) * ray->delta.y;
+	}
+}
+
+void	cast_rays(t_fov *fov)
 {
 	t_ray	ray;
 	size_t	x;
@@ -22,12 +66,15 @@ void	cast_rays(t_game *game, t_fov *fov)
 	x = 0;
 	while (x < fov->width)
 	{
-		fov->grid.x = ((2 * x) / fov->width) - 1;
-		ray.dir.x = fov->cam.dir.x + fov->cam.plane.x * fov->grid.x;
-		ray.dir.y = fov->cam.dir.y + fov->cam.plane.y * fov->grid.x;
-		ray.reached.col = game->plyr.pos.col;
-		ray.reached.row = game->plyr.pos.row;
+		fov->pixel.x = ((2 * x) / fov->width) - 1; //init
+		ray.dir.x = fov->cam.dir.x + fov->cam.plane.x * fov->pixel.x;
+		ray.dir.y = fov->cam.dir.y + fov->cam.plane.y * fov->pixel.x;
+		ray.reached.col = fov->game->plyr.pos.col;
+		ray.reached.row = fov->game->plyr.pos.row;
 		ray.delta.x = fabs(1 / ray.dir.x);
 		ray.delta.y = fabs(1 / ray.dir.y);
+		reach_grid(fov->game->plyr, &ray);
+		dda(fov->game->map, &ray);
+		// calc dist au mur...
 	}
 }
