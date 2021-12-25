@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:08:27 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/24 19:48:37 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/25 11:22:57 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,19 @@ void	dda(t_map *map, t_ray *ray)
 		{
 			ray->trvl_along.x += ray->delta.x;
 			ray->reached.col += ray->step.x;
-			// Siding ?
+			if (ray->step.x == 1)
+				ray->side = EAS;
+			else
+				ray->side = WES;
 		}
 		else
 		{
 			ray->trvl_along.y += ray->delta.y;
 			ray->reached.row += ray->step.y;
-			// Siding ?
+			if (ray->step.y == 1)
+				ray->side = SOU;
+			else
+				ray->side = NOR;
 		}
 	}
 }

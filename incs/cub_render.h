@@ -6,21 +6,30 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 14:19:21 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/24 19:11:31 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/25 11:22:54 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_RENDER_H
 # define CUB_RENDER_H
 
+// LETS USE CUB ENUM INSTEAD (NOR, SOU...)
+/* typedef enum e_side { */
+/* 	NORTH, */
+/* 	WEST, */
+/* 	SOUTH, */
+/* 	EAST */
+/* }	t_side; */
+
 // RAY: vector probing the map in front of the player to create a line of sight.
 typedef struct s_ray {
-	t_vf2d	dir;
-	t_vi2d	step;
-	t_vf2d	delta;
-	t_vf2d	trvl_along;
-	t_pos	reached;
-	float	len;
+	t_vf2d		dir;
+	t_vi2d		step;
+	t_vf2d		delta;
+	t_vf2d		trvl_along;
+	t_pos		reached;
+	t_cub_key	side;
+	float		len;
 }	t_ray;
 
 // CAMERA: the necessary vectors to aim our rays and render our view.
