@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 14:19:21 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/26 18:18:18 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 08:32:55 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_ray {
 	size_t		top;
 }	t_ray;
 
-// CAMERA: the necessary vectors to aim our rays and render our view.
+// CAMERA: necessary vectors to aim our rays and render our view.
 # define CAM_PLANE_X 0
 # define CAM_PLANE_Y 0.66
 

@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/22 13:30:19 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 11:54:20 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,29 @@ t_error	cub_shutdown(t_game *game, t_error cause)
 	return (cause);
 }
 
-/* static t_error	cub_launch_game(t_game *game, t_fov *fov) */
-/* { */
-/* 	t_img	frm; */
+static t_error	cub_launch_game(t_game *game, t_fov *fov)
+{
+	t_img	frm;
 
-/* 	game->fov = fov; */
-/* 	// SCALE GRAPHICS ? */
-/* 	fov->mlx.win = mlx_new_window(fov->mlx.lnk, fov->width, fov->height, */
-/* 	if (!fov->mlx.win) */
-/* 		return (MEM_ALLOC); */
-/* 		"cub3D"); */
-/* 	fov->frm = &frm; */
-/* 	fov->frm->ptr = mlx_new_image(fov->mlx.lnk, fov->width, fov->height); */
-/* 	fov->frm->addr = (int *)mlx_get_data_addr(fov->frm->ptr, &fov->frm->bpp, */
-/* 			&fov->frm->line_size, &fov->frm->endian); */
-/* 	if (!fov->frm->ptr) */
-/* 	{ */
-/* 		mlx_destroy_window(fov->mlx.lnk, fov->mlx.win); */
-/* 		return (MEM_ALLOC); */
-/* 	} */
-/* 	// RUN HOOKS */
-/* 	return (CLEAR); */
-/* } */
+	game->fov = fov;
+	// SCALE GRAPHICS ?
+	fov->mlx.win = mlx_new_window(fov->mlx.lnk, fov->width, fov->height,
+	if (!fov->mlx.win)
+		return (MEM_ALLOC);
+		"cub3D");
+	fov->frm = &frm;
+	fov->frm->ptr = mlx_new_image(fov->mlx.lnk, fov->width, fov->height);
+	fov->frm->addr = (int *)mlx_get_data_addr(fov->frm->ptr, &fov->frm->bpp,
+			&fov->frm->line_size, &fov->frm->endian);
+	if (!fov->frm->ptr)
+	{
+		mlx_destroy_window(fov->mlx.lnk, fov->mlx.win);
+		return (MEM_ALLOC);
+	}
+	init_move_key_matrix(game);
+	cub_run_hooks(game);
+	return (CLEAR);
+}
 
 t_error	cub_gnl_loop(t_game *game, t_cub_reader mode, t_newline *nl)
 {
@@ -148,7 +149,7 @@ int	main(int ac, char **av)
 	error = CLEAR;
 	if (!error)
 		error = cub_read_conf(&game, av[1]);
-	/* if (!error) */
-	/* 	error = cub_launch_game(&game, &fov); */
+	if (!error)
+		error = cub_launch_game(&game, &fov);
 	return (cub_shutdown(&game, error));
 }

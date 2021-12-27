@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/23 14:07:04 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 11:55:28 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,7 @@
 
 # define MATCH 0
 
-# define CUB_DATA_RANGE 6
-
-typedef enum e_cub_key {
-	NOR,
-	SOU,
-	WES,
-	EAS,
-	FLO,
-	CEI
-}	t_cub_key;
-
 # define TILE_RANGE 7
-
 typedef enum e_tile {
 	OUTS,
 	VOID,
@@ -42,6 +30,7 @@ typedef enum e_tile {
 	FILL
 }	t_tile;
 
+// PLYR : Player data structure
 typedef struct s_plyr {
 	bool		exists;
 	t_pos		pos;
@@ -50,9 +39,21 @@ typedef struct s_plyr {
 }	t_plyr;
 
 typedef struct s_game	t_game;
+
+// CUB : Data parsing and storage array structure
 typedef struct s_cub	t_cub;
 
 typedef t_error	(*t_cub_parser)(t_game *game, t_cub_key elem, char *line);
+
+# define CUB_DATA_RANGE 6
+typedef enum e_cub_key {
+	NOR,
+	SOU,
+	WES,
+	EAS,
+	FLO,
+	CEI
+}	t_cub_key;
 
 typedef struct s_cub {
 	char			*flag;
@@ -60,12 +61,28 @@ typedef struct s_cub {
 	void			*ctnt;
 }	t_cub;
 
+typedef enum e_cub_keys {
+	LFT,
+	RGT,
+	W,
+	A,
+	S,
+	D
+}	t_cub_keys;
+
+typedef struct s_input {
+	bool			held;
+	t_mlx_keycodes	keycode;
+}	t_input;
+
+// GAME : Overarching game system structure
 typedef struct s_game {
 	t_cub	*data;
 	size_t	map_offset;
 	t_map	map;
 	t_plyr	plyr;
 	t_fov	*fov;
+	t_input	*key;
 }	t_game;
 
 #endif

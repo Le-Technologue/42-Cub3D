@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 17:09:18 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/26 18:58:12 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 09:31:06 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	reach_grid(t_plyr plyr, t_ray *ray)
 	}
 }
 
-void	cast_rays(t_fov *fov)
+void	cast_rays(t_fov *fov, t_game *game)
 {
 	t_ray	ray;
 	size_t	x;
@@ -100,14 +100,14 @@ void	cast_rays(t_fov *fov)
 		fov->pixel.x = ((2 * x) / fov->width) - 1; //init
 		ray.dir.x = fov->cam.dir.x + fov->cam.plane.x * fov->pixel.x;
 		ray.dir.y = fov->cam.dir.y + fov->cam.plane.y * fov->pixel.x;
-		ray.reached.col = fov->game->plyr.pos.col;
-		ray.reached.row = fov->game->plyr.pos.row;
+		ray.reached.col = game->plyr.pos.col;
+		ray.reached.row = game->plyr.pos.row;
 		ray.delta.x = fabs(1 / ray.dir.x);
 		ray.delta.y = fabs(1 / ray.dir.y);
-		reach_grid(fov->game->plyr, &ray);
-		dda(fov->game->map, &ray);
+		reach_grid(game->plyr, &ray);
+		dda(game->map, &ray);
 		normalize_wall_dist(&ray);
 		set_ray_spread(fov, &ray);
-		draw_ray(fov, &ray, fov->width - ++x); // Weird formula or incr ?
+		draw_ray(fov, game, &ray, fov->width - ++x); // Weird formula or incr ?
 	}
 }
