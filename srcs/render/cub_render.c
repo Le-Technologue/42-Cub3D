@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:08:27 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/27 11:06:09 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 12:03:16 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ int	cub_render_frame(t_game *game)
 	cast_rays(game->fov, game);
 	mlx_put_image_to_window(game->fov.mlx.lnk, game->fov->mlx.win,
 			game->fov->frm->ptr, 0, 0);
-	handle_plyr_input(game);
+	process_input(game);
 }

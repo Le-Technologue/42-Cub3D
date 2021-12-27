@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 14:19:21 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/27 08:32:55 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 14:19:36 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ typedef struct s_ray {
 # define CAM_PLANE_Y 0.66
 
 typedef struct s_cam {
-	t_pos	tile;
-	t_vf2d	pos;
 	t_vf2d	dir;
-	t_vf2d	plane;
-	/* t_ray	*ray; */
+	t_vf2d	pln;
+	int		pixel_x;
 }	t_cam;
 
 // FIELD OF VIEW: overarching graphic parameters to render our frame.
@@ -54,7 +52,7 @@ typedef struct s_fov {
 	t_mlx	mlx;
 	size_t	height;
 	size_t	width;
-	vi2d	pixel;
+	t_cam	cam;
 	t_img	*frm;
 	/* size_t	tile_hgt; */
 	/* size_t	tile_wid; */
