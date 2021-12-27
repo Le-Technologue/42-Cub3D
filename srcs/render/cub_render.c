@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:08:27 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/27 12:03:16 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 15:28:29 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	draw_ray(t_fov *fov, t_game *game, t_ray *ray, size_t x)
 	while (y < ray->top)
 		set_pixel(fov->frm, x, y++, (int)*game->cub[CEI].data);
 	if (ray->side == EAS || ray->side == WES)
-		wx = game->plyr.pos.y + ray->wall_dist * ray->dir.y;
+		wx = game->cam.pos.y + ray->wall_dist * ray->dir.y;
 	else
-		wx = game->plyr.pos.x + ray->wall_dist * ray->dir.x;
+		wx = game->cam.pos.x + ray->wall_dist * ray->dir.x;
 	wx -= floor(wx);
 	while (y < ray->bottom)
 	{

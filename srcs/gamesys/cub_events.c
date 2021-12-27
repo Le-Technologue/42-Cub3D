@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 10:46:04 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/27 14:29:50 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 15:40:15 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 void	process_input(t_game *game)
 {
 	if (game->key[W].held && !game->key[S].held)
-		longitudinal_move(game, FRWD);
+		move(game, FRWD);
 	else if (game->key[S].held && !game->key[W].held)
-		longitudinal_move(game, BKWD);
+		move(game, BKWD);
 	if (game->key[A].held && !game->key[D].held)
-		lateral_move(game, LTWD);
+		move(game, LTWD);
 	else if (game->key[D].held && !game->key[W].held)
-		lateral_move(game, RTWD);
+		move(game, RTWD);
 	if (game->key[LFT].held && !game->key[RGT].held)
-		rotation(game->fov, game->fov->cam, LTWD);
+		rotate(game->fov, game->fov->cam, LTWD);
 	else if (game->key[RGT].held && !game->key[LFT].held)
-		rotation(game->fov, game->fov->cam, RTWD);
+		rotate(game->fov, game->fov->cam, RTWD);
 }
 
 int	cub_key_release(int keycode, t_input *key)
