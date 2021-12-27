@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_moves.c                                        :+:      :+:    :+:   */
+/*   cub_travelling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/27 13:46:37 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/27 15:45:44 by wetieven         ###   ########lyon.fr   */
+/*   Created: 2021/12/27 15:58:42 by wetieven          #+#    #+#             */
+/*   Updated: 2021/12/27 16:13:35 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub_moves.h"
+#include "cub_travelling.h"
 
 void	rotate(t_fov *fov, t_cam *cam, t_move direction)
 {
@@ -49,4 +49,26 @@ void	move(t_cam *cam, t_game *game, t_move move)
 		cam->pos.x = target.x;
 	if (!collision(game, cam->pos.x, target.y)
 		cam->pos.y = target.y;
+}
+
+void	set_camera(t_cam *cam, t_tile plyr_orientation)
+{
+	if (plyr_orientation == PL_N || plyr_orientation == PL_W)
+		cam_orientation = -1;
+	else
+		cam_orientation = 1;
+	if (plyr_orientation == PL_N || PL_S)
+	{
+		cam->dir.x = 0;
+		cam->dir.y = 1 * cam_orientation;
+		cam->pln.x = 0.66 * cam_orientation;
+		cam->pln.y = 0;
+	}
+	else
+	{
+		cam->dir.x = 1 * cam_orientation;
+		cam->dir.y = 0;
+		cam->pln.x = 0;
+		cam->pln.y = 0.66 * cam_orientation;
+	}
 }
