@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 10:46:04 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 11:50:57 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 12:36:05 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "cub_travelling.h"
 #include "cub_render.h"
 
-int	cub_close_win(t_game *game)
+static int	cub_close_win(t_game *game)
 {
 	cub_shutdown(game, CLEAR);
 	return (0);

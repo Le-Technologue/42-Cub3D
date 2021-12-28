@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 11:36:05 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 12:56:31 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_error	cub_shutdown(t_game *game, t_error cause)
 
 	if (cause == MEM_ALLOC)
 		ft_printf("Error\nMemory saturated, consider closing Google Chrome.\n");
+	vctr_exit(game->map.grid);
 	i = CUB_DATA_RANGE;
 	if (game->data)
 	{
@@ -38,9 +39,11 @@ t_error	cub_shutdown(t_game *game, t_error cause)
 				mlx_destroy_image(game->fov->mlx.lnk, texture->img.ptr);
 		}
 	}
-	if (game->map.grid != NULL)
-		vctr_exit(game->map.grid);
-	//then some shit to take care of the fov, and before that some consideration whether to where we should put the fov structure wise
+	if (cause == CLEAR)
+	{
+		mlx_destroy_image(game->fov->mlx.lnk, game->fov->frm->ptr);
+		mlx_destroy_window(game->fov->mlx.lnk, game->fov->mlx.win);
+	}
 	return (cause);
 }
 
@@ -48,6 +51,8 @@ static t_error	cub_launch_game(t_game *game, t_fov *fov)
 {
 	t_img	frm;
 
+	fov->width = RESOL_WID;
+	fov->height = RESOL_HEI;
 	game->fov = fov;
 	// SCALE GRAPHICS ?
 	fov->mlx.win = mlx_new_window(fov->mlx.lnk, fov->width, fov->height,
@@ -110,7 +115,6 @@ static t_error	cub_read_conf(t_game *game, const char *cub_path)
 	t_error		error;
 	t_newline	nl;
 
-	game->data = NULL;
 	if (fd_opener(cub_path, &nl.fd) != CLEAR)
 	{
 		ft_printf("Error\nThe map file path \"%s\" leads nowhere\n", cub_path);
@@ -141,9 +145,11 @@ int	main(int ac, char **av)
 		return (ft_err_msg("USAGE : ./cub3d <MAP_PATH>.cub", PARSE));
 	if (file_ext_chk(av[1], ".cub") != CLEAR)
 		return (ft_err_msg("Config file extension must be \".cub\"", PARSE));
+	game.data = NULL;
+	game.map_offset = 0;
 	game.map.grid = NULL;
 	game.map.cols = 0;
-	game.map_offset = 0;
+	game.map.rows = 0;
 	game.plyr.exists = false;
 	game.fov = &fov;
 	fov.mlx.lnk = mlx_init();
