@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 11:17:18 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 11:53:21 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CUB3D_H
 
 # include "libft.h"
-# include "cub_render.h"
 
 # define MATCH 0
 
@@ -40,10 +39,6 @@ typedef struct s_plyr {
 typedef struct s_game	t_game;
 
 // CUB : Data parsing and storage array structure
-typedef struct s_cub	t_cub;
-
-typedef t_error	(*t_cub_parser)(t_game *game, t_cub_key elem, char *line);
-
 # define CUB_DATA_RANGE 6
 typedef enum e_cub_key {
 	NOR,
@@ -53,6 +48,8 @@ typedef enum e_cub_key {
 	FLO,
 	CEI
 }	t_cub_key;
+
+typedef t_error	(*t_cub_parser)(t_game *game, t_cub_key elem, char *line);
 
 typedef struct s_cub {
 	char			*flag;
@@ -76,7 +73,42 @@ typedef enum e_cub_keys {
 	D
 }	t_cub_keys;
 
-// GAME : Overarching, all encompassing, game system data structure
+// RAY: vector probing the map in front of the player to create a line of sight.
+typedef struct s_ray {
+	t_vf2d		dir;
+	t_vi2d		step;
+	t_vf2d		delta;
+	t_vf2d		trvl_along;
+	t_pos		reached;
+	t_cub_key	side;
+	float		wall_dist;
+	size_t		bottom;
+	size_t		top;
+}	t_ray;
+
+// CAMERA: necessary vectors to aim our rays and render our view,
+// acting eyes and legs of the player during the game.
+typedef struct s_cam {
+	t_vf2d	pos;
+	t_vf2d	dir;
+	t_vf2d	pln;
+	int		pixel_x;
+}	t_cam;
+
+// FIELD OF VIEW: Overarching graphic parameters to render our frame.
+# define RESOL_WID 1024
+# define RESOL_HEI 768
+
+typedef struct s_fov {
+	t_mlx	mlx;
+	size_t	height;
+	size_t	width;
+	t_img	*frm;
+	/* size_t	tile_hgt; */
+	/* size_t	tile_wid; */
+}	t_fov;
+
+// GAME : All encompassing, game system data structure
 typedef struct s_game {
 	t_cub	*data;
 	size_t	map_offset;
@@ -86,5 +118,7 @@ typedef struct s_game {
 	t_input	*key;
 	t_fov	*fov;
 }	t_game;
+
+t_error	cub_shutdown(t_game *game, t_error cause);
 
 #endif

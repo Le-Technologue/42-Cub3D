@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 11:04:17 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 11:36:05 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "cub_data.h"
 #include "cub_map.h"
 #include "cub_map_checks.h"
+#include "cub_events.h"
+#include "cub_travelling.h"
 
 t_error	cub_shutdown(t_game *game, t_error cause)
 {
@@ -49,9 +51,9 @@ static t_error	cub_launch_game(t_game *game, t_fov *fov)
 	game->fov = fov;
 	// SCALE GRAPHICS ?
 	fov->mlx.win = mlx_new_window(fov->mlx.lnk, fov->width, fov->height,
+			"cub3D");
 	if (!fov->mlx.win)
 		return (MEM_ALLOC);
-		"cub3D");
 	fov->frm = &frm;
 	fov->frm->ptr = mlx_new_image(fov->mlx.lnk, fov->width, fov->height);
 	fov->frm->addr = (int *)mlx_get_data_addr(fov->frm->ptr, &fov->frm->bpp,
@@ -62,7 +64,7 @@ static t_error	cub_launch_game(t_game *game, t_fov *fov)
 		return (MEM_ALLOC);
 	}
 	set_key_matrix(game);
-	set_camera(game->cam, game->plyr);
+	set_camera(&game->cam, &game->plyr);
 	cub_run_hooks(game);
 	return (CLEAR);
 }

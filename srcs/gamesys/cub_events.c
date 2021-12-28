@@ -6,29 +6,38 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 10:46:04 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 11:07:18 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 11:50:57 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
+#include "cub3d.h"
 #include "cub_travelling.h"
+#include "cub_render.h"
+
+int	cub_close_win(t_game *game)
+{
+	cub_shutdown(game, CLEAR);
+	return (0);
+}
 
 void	process_input(t_game *game)
 {
 	if (game->key[W].held && !game->key[S].held)
-		move_cam(game, FRWD);
+		move_cam(&game->cam, game, FRWD);
 	else if (game->key[S].held && !game->key[W].held)
-		move_cam(game, BKWD);
+		move_cam(&game->cam, game, BKWD);
 	if (game->key[A].held && !game->key[D].held)
-		move_cam(game, LTWD);
+		move_cam(&game->cam, game, LTWD);
 	else if (game->key[D].held && !game->key[A].held)
-		move_cam(game, RTWD);
+		move_cam(&game->cam, game, RTWD);
 	if (game->key[LFT].held && !game->key[RGT].held)
-		rotate_cam(game->fov, game->fov->cam, LTWD);
+		rotate_cam(&game->cam, game->fov, LTWD);
 	else if (game->key[RGT].held && !game->key[LFT].held)
-		rotate_cam(game->fov, game->fov->cam, RTWD);
+		rotate_cam(&game->cam, game->fov, RTWD);
 }
 
-int	cub_key_release(int keycode, t_input *key)
+static int	cub_key_release(int keycode, t_input *key)
 {
 	if (keycode == LFT_K)
 		key[LFT].held = false;
@@ -42,12 +51,13 @@ int	cub_key_release(int keycode, t_input *key)
 		key[S].held = false;
 	else if (keycode == D_KEY)
 		key[D].held = false;
+	return (0);
 }
 
-int	cub_key_press(int keycode, t_game *game)
+static int	cub_key_press(int keycode, t_game *game)
 {
 	if (keycode == ESC_K)
-		return (cub_shutdown(game));
+		return (cub_close_win(game));
 	else if (keycode == LFT_K)
 		game->key[LFT].held = true;
 	else if (keycode == RGT_K)
@@ -60,13 +70,14 @@ int	cub_key_press(int keycode, t_game *game)
 		game->key[S].held = true;
 	else if (keycode == D_KEY)
 		game->key[D].held = true;
+	return (0);
 }
 
 void	cub_run_hooks(t_game *game)
 {
 	mlx_hook(game->fov->mlx.win, 2, 1L << 0, cub_key_press, game);
 	mlx_hook(game->fov->mlx.win, 3, 1L << 1, cub_key_release, game->key);
-	mlx_hook(game->fov->mlx.win, 17, 1L << 17, cub_shutdown, game);
+	mlx_hook(game->fov->mlx.win, 17, 1L << 17, cub_close_win, game);
 	mlx_loop_hook(game->fov->mlx.lnk, cub_render_frame, game);
 	mlx_loop(game->fov->mlx.lnk);
 }

@@ -6,11 +6,14 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 17:09:18 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/27 15:34:05 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 12:23:38 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
+#include "cub_map.h"
+#include "cub_render.h"
+#include "cub_raycasting.h"
 
 /* void	set_ray(t_ray *ray) */
 /* { */
@@ -19,7 +22,7 @@
 
 static void	set_ray_spread(t_fov *fov, t_ray *ray)
 {
-	size_t	ray_height
+	size_t	ray_height;
 
 	ray_height = fov->height / ray->wall_dist;
 	ray->bottom = -ray_height / 2 + fov->height;
@@ -30,13 +33,13 @@ static void	set_ray_spread(t_fov *fov, t_ray *ray)
 		ray->top = fov->height - 1;
 }
 
-static void	normalize_wall_dist(t_fov *fov, t_cam *cam, t_ray *ray)
+static void	normalize_wall_dist(t_cam *cam, t_ray *ray)
 {
-	if (ray->side == EAS || ray.side == WES)
-		ray->wall_dist = (ray->reached.x - cam.pos.x
+	if (ray->side == EAS || ray->side == WES)
+		ray->wall_dist = (ray->reached.col - cam->pos.x
 				+ (1 - ray->step.x) / 2) / ray->dir.x;
 	else
-		ray->wall_dist = (ray->reached.y - cam.pos.y
+		ray->wall_dist = (ray->reached.row - cam->pos.y
 				+ (1 - ray->step.y) / 2) / ray->dir.y;
 }
 
@@ -70,22 +73,22 @@ static void	reach_grid(t_ray *ray, t_cam *cam)
 	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1;
-		ray->trvl_along.x = (cam->pos.x - ray->reached.x) * ray->delta.x;
+		ray->trvl_along.x = (cam->pos.x - ray->reached.col) * ray->delta.x;
 	}
 	else
 	{
 		ray->step.x = 1;
-		ray->trvl_along.x = (ray->reached.x + 1 - cam->pos.x) * ray->delta.x;
+		ray->trvl_along.x = (ray->reached.col + 1 - cam->pos.x) * ray->delta.x;
 	}
 	if (ray->dir.y < 0)
 	{
 		ray->step.y = -1;
-		ray->trvl_along.y = (cam->pos.y - ray->map.y) * ray->delta.y;
+		ray->trvl_along.y = (cam->pos.y - ray->reached.row) * ray->delta.y;
 	}
 	else
 	{
 		ray->step.y = 1;
-		ray->trvl_along.y = (ray->map.y + 1 - cam->pos.y) * ray->delta.y;
+		ray->trvl_along.y = (ray->reached.row + 1 - cam->pos.y) * ray->delta.y;
 	}
 }
 
@@ -97,16 +100,16 @@ void	cast_rays(t_fov *fov, t_cam *cam, t_game *game)
 	x = 0;
 	while (x < fov->width)
 	{
-		cam.pixel_x = ((2 * x) / fov->width) - 1; //init
-		ray.dir.x = cam.dir.x + cam.plane.x * cam.pixel_x;
-		ray.dir.y = cam.dir.y + cam.plane.y * cam.pixel_x;
+		cam->pixel_x = ((2 * x) / fov->width) - 1; //init
+		ray.dir.x = cam->dir.x + cam->pln.x * cam->pixel_x;
+		ray.dir.y = cam->dir.y + cam->pln.y * cam->pixel_x;
 		ray.reached.col = (size_t)cam->pos.x;
 		ray.reached.row = (size_t)cam->pos.y;
 		ray.delta.x = fabs(1 / ray.dir.x);
 		ray.delta.y = fabs(1 / ray.dir.y);
 		reach_grid(&ray, cam);
-		dda(&ray, game->map);
-		normalize_wall_dist(fov, cam, &ray);
+		dda(&ray, &game->map);
+		normalize_wall_dist(cam, &ray);
 		set_ray_spread(fov, &ray);
 		draw_ray(fov, game, &ray, fov->width - ++x); // Weird formula or incr ?
 	}

@@ -6,12 +6,14 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:58:25 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/27 15:58:30 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 11:41:54 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_MOVES_H
 # define CUB_MOVES_H
+
+# include "cub3d.h"
 
 # define MOVE_SPEED 0.05
 
@@ -21,5 +23,9 @@ typedef enum e_move {
 	LTWD,
 	RTWD
 }	t_move;
+
+void	rotate_cam(t_cam *cam, t_fov *fov, t_move direction);
+void	move_cam(t_cam *cam, t_game *game, t_move move);
+void	set_camera(t_cam *cam, t_plyr *plyr);
 
 #endif
