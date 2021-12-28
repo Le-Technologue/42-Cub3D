@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 17:09:18 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 12:23:38 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 13:15:29 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	normalize_wall_dist(t_cam *cam, t_ray *ray)
 
 static void	dda(t_ray *ray, t_map *map)
 {
-	while(*tile(map, ray->reached.col, ray->reached.row) != WALL)
+	while(ray->hit)
 	{
 		if (ray->trvl_along.x < ray->trvl_along.y)
 		{
@@ -65,6 +65,8 @@ static void	dda(t_ray *ray, t_map *map)
 			else
 				ray->side = NOR;
 		}
+		if (*tile(map, ray->reached.col, ray->reached.row) == WALL)
+			ray->hit = true;
 	}
 }
 
@@ -100,6 +102,7 @@ void	cast_rays(t_fov *fov, t_cam *cam, t_game *game)
 	x = 0;
 	while (x < fov->width)
 	{
+		ray.hit = false;
 		cam->pixel_x = ((2 * x) / fov->width) - 1; //init
 		ray.dir.x = cam->dir.x + cam->pln.x * cam->pixel_x;
 		ray.dir.y = cam->dir.y + cam->pln.y * cam->pixel_x;

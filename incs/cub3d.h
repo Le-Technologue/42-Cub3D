@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 12:56:03 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 13:14:53 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_ray {
 	t_vf2d		trvl_along;
 	t_pos		reached;
 	t_cub_key	side;
+	bool		hit;
 	float		wall_dist;
 	size_t		bottom;
 	size_t		top;
