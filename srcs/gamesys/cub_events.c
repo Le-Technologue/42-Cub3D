@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 10:46:04 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/27 15:59:04 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 11:07:18 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 void	process_input(t_game *game)
 {
 	if (game->key[W].held && !game->key[S].held)
-		move(game, FRWD);
+		move_cam(game, FRWD);
 	else if (game->key[S].held && !game->key[W].held)
-		move(game, BKWD);
+		move_cam(game, BKWD);
 	if (game->key[A].held && !game->key[D].held)
-		move(game, LTWD);
-	else if (game->key[D].held && !game->key[W].held)
-		move(game, RTWD);
+		move_cam(game, LTWD);
+	else if (game->key[D].held && !game->key[A].held)
+		move_cam(game, RTWD);
 	if (game->key[LFT].held && !game->key[RGT].held)
-		rotate(game->fov, game->fov->cam, LTWD);
+		rotate_cam(game->fov, game->fov->cam, LTWD);
 	else if (game->key[RGT].held && !game->key[LFT].held)
-		rotate(game->fov, game->fov->cam, RTWD);
+		rotate_cam(game->fov, game->fov->cam, RTWD);
 }
 
 int	cub_key_release(int keycode, t_input *key)
@@ -71,7 +71,7 @@ void	cub_run_hooks(t_game *game)
 	mlx_loop(game->fov->mlx.lnk);
 }
 
-void	init_move_key_matrix(t_game *game)
+void	set_key_matrix(t_game *game)
 {
 	static t_input	move_keyboard[] = {
 	[LFT] = {.held = false, .keycode = LFT_K},

@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 10:09:32 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 11:04:17 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static t_error	cub_launch_game(t_game *game, t_fov *fov)
 		mlx_destroy_window(fov->mlx.lnk, fov->mlx.win);
 		return (MEM_ALLOC);
 	}
-	init_move_key_matrix(game);
+	set_key_matrix(game);
 	set_camera(game->cam, game->plyr);
 	cub_run_hooks(game);
 	return (CLEAR);

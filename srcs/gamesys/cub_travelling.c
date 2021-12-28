@@ -6,13 +6,13 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:58:42 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 10:26:20 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 11:07:41 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_travelling.h"
 
-void	rotate(t_fov *fov, t_cam *cam, t_move direction)
+void	rotate_cam(t_fov *fov, t_cam *cam, t_move direction)
 {
 	float	prv_dir_x;
 	float	prv_pln_x;
@@ -29,7 +29,7 @@ void	rotate(t_fov *fov, t_cam *cam, t_move direction)
 	cam->pln.y = prv_pln_x * sin(rot_speed) + cam->pln.y * cos(rot_speed);
 }
 
-void	move(t_cam *cam, t_game *game, t_move move)
+void	move_cam(t_cam *cam, t_game *game, t_move move)
 {
 	vf2d	axis;
 	int		orientation;

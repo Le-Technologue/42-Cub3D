@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/27 15:02:40 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 11:17:18 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ typedef struct s_cub {
 	void			*ctnt;
 }	t_cub;
 
+// INPUT : an array of this struct creates a key matrix,
+// the following enum is its index.
+typedef struct s_input {
+	bool			held;
+	t_mlx_keycodes	keycode;
+}	t_input;
+
 typedef enum e_cub_keys {
 	LFT,
 	RGT,
@@ -69,20 +76,15 @@ typedef enum e_cub_keys {
 	D
 }	t_cub_keys;
 
-typedef struct s_input {
-	bool			held;
-	t_mlx_keycodes	keycode;
-}	t_input;
-
-// GAME : Overarching game system structure
+// GAME : Overarching, all encompassing, game system data structure
 typedef struct s_game {
 	t_cub	*data;
 	size_t	map_offset;
 	t_map	map;
 	t_plyr	plyr;
 	t_cam	cam;
-	t_fov	*fov;
 	t_input	*key;
+	t_fov	*fov;
 }	t_game;
 
 #endif
