@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:58:42 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 10:10:12 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 10:26:20 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ void	move(t_cam *cam, t_game *game, t_move move)
 	if (move == FRWD || move == BKWD)
 		axis = cam->dir;
 	else
-		axis = cam->plane;
+		axis = cam->pln;
 	if (move == FRWD || move == RTWD)
 		orientation = 1;
 	else
 		orientation = -1;
 	target.x = cam->pos.x + (axis.x * MOVE_SPEED) * orientation;
 	target.y = cam->pos.y + (axis.y * MOVE_SPEED) * orientation;
-	if (!collision(game, target.x, cam->pos.y)
+	if (*tile(game, (size_t)target.x, (size_t)cam->pos.y) != WALL)
 		cam->pos.x = target.x;
-	if (!collision(game, cam->pos.x, target.y)
+	if (*tile(game, (size_t)cam->pos.x, (size_t)target.y) != WALL)
 		cam->pos.y = target.y;
 }
 
