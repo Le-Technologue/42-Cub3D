@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:58:42 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 10:00:19 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 10:10:12 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,17 @@ void	move(t_cam *cam, t_game *game, t_move move)
 		cam->pos.y = target.y;
 }
 
-void	set_camera(t_cam *cam, t_plyr *plyr, t_tile plyr_orientation)
+void	set_camera(t_cam *cam, t_plyr *plyr)
 {
+	int cam_orientation;
+
 	cam->pos.x = (float)plyr->pos.x + 0.5;
 	cam->pos.y = (float)plyr->pos.y + 0.5;
-	if (plyr_orientation == PL_N || plyr_orientation == PL_W)
+	if (plyr->orientation == PL_N || plyr->orientation == PL_W)
 		cam_orientation = -1;
 	else
 		cam_orientation = 1;
-	if (plyr_orientation == PL_N || PL_S)
+	if (plyr->orientation == PL_N || PL_S)
 	{
 		cam->dir.x = 0;
 		cam->dir.y = 1 * cam_orientation;
