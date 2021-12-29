@@ -6,7 +6,7 @@
 #    By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/27 13:50:48 by wetieven          #+#    #+#              #
-#    Updated: 2021/12/28 11:38:05 by wetieven         ###   ########lyon.fr    #
+#    Updated: 2021/12/29 00:54:32 by wetieven         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,7 +97,7 @@ DEPFL		=	-MT $@ -MMD -MP -MF $(DDIR)$*.d
 CINCS		=	$(addprefix -I, $(HDIR))
 CLDIR		=	$(addprefix -L, $(LDIR))
 ifeq ($(shell uname),Linux)
-	CLIBS		=	$(LNAMES:lib%.a=-l%) -lmlx -lX11 -lXext # Linux
+	CLIBS		=	$(LNAMES:lib%.a=-l%) -lm -lmlx -lX11 -lXext # Linux
 else
 	CLIBS		=	$(LNAMES:lib%.a=-l%) -framework OpenGL -framework AppKit # Apple
 endif

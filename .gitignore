@@ -8,6 +8,6 @@ a.out*
 *test*
 tags
 todo.md
-cub3d
+cub3D
 /libs/mlx
 drafts.c

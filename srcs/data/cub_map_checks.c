@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 07:30:13 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/20 11:21:42 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 01:04:16 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ t_error	map_breached(t_game *game)
 {
 	t_error	error;
 
-	ft_printf("Parsed map :\n"); //TESTING
-	print_map_vctr(game->map); // TESTING
+	/* ft_printf("Parsed map :\n"); //TESTING */
+	/* print_map_vctr(game->map); // TESTING */
 	error = map_fill(game->map, game->plyr.pos.col, game->plyr.pos.row, FILL);
-	ft_printf("Map fill :\n"); //TESTING
-	print_map_vctr(game->map); //TESTING
+	/* ft_printf("Map fill :\n"); //TESTING */
+	/* print_map_vctr(game->map); //TESTING */
 	if (error)
 		return (error);
 	map_fill(game->map, game->plyr.pos.col, game->plyr.pos.row, VOID);

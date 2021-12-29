@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:08:27 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 13:55:43 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 00:52:29 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	draw_ray(t_fov *fov, t_game *game, t_ray *ray, size_t x)
 	texture = game->data[ray->side].ctnt;
 	while (y < ray->top)
 		cub_set_pixel(fov, x, y++, *(int *)game->data[CEI].ctnt);
-		if (ray->side == EAS || ray->side == WES)
+	if (ray->side == EAS || ray->side == WES)
 		wx = game->cam.pos.y + ray->wall_dist * ray->dir.y;
 	else
 		wx = game->cam.pos.x + ray->wall_dist * ray->dir.x;

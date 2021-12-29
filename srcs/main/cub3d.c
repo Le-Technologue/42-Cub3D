@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 12:56:31 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 01:49:37 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ t_error	cub_shutdown(t_game *game, t_error cause)
 				mlx_destroy_image(game->fov->mlx.lnk, texture->img.ptr);
 		}
 	}
-	if (cause == CLEAR)
-	{
+	if (game->fov->frm)
 		mlx_destroy_image(game->fov->mlx.lnk, game->fov->frm->ptr);
+	if (game->fov->mlx.win)
 		mlx_destroy_window(game->fov->mlx.lnk, game->fov->mlx.win);
-	}
+	exit(cause);
 	return (cause);
 }
 
@@ -151,6 +151,8 @@ int	main(int ac, char **av)
 	game.map.cols = 0;
 	game.map.rows = 0;
 	game.plyr.exists = false;
+	fov.mlx.win = NULL;
+	fov.frm = NULL;
 	game.fov = &fov;
 	fov.mlx.lnk = mlx_init();
 	if (!fov.mlx.lnk)
