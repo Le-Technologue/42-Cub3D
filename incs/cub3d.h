@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 13:14:53 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 02:06:58 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 // For ft_strncmp matches
 # define MATCH 0
 
+// TILES : All the possible map bits
 # define TILE_RANGE 7
+
 typedef enum e_tile {
 	OUTS,
 	VOID,
@@ -41,6 +43,7 @@ typedef struct s_game	t_game;
 
 // CUB : Data parsing and storage array structure
 # define CUB_DATA_RANGE 6
+
 typedef enum e_cub_key {
 	NOR,
 	SOU,
@@ -106,8 +109,6 @@ typedef struct s_fov {
 	size_t	height;
 	size_t	width;
 	t_img	*frm;
-	/* size_t	tile_hgt; */
-	/* size_t	tile_wid; */
 }	t_fov;
 
 // GAME : All encompassing, game system data structure

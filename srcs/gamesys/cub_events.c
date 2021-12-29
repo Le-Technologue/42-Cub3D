@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 10:46:04 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 01:47:08 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 02:08:54 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ void	set_key_matrix(t_game *game)
 	[S] = {.held = false, .keycode = S_KEY},
 	[D] = {.held = false, .keycode = D_KEY},
 	};
+
 	game->key = move_keyboard;
 }

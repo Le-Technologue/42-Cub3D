@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 07:30:13 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 01:04:16 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 02:13:18 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_error	measure_map(t_game *game, t_newline *nl)
 	t_error			error;
 
 	if (*nl->line == '\0')
-		return (CLEAR); //just an empty line is valid, keep going
+		return (CLEAR);
 	error = CLEAR;
 	if (cub_completion(game->data) != CLEAR)
 		error = PARSE;
@@ -89,8 +89,8 @@ t_error	map_breached(t_game *game)
 	return (CLEAR);
 }
 
-void	print_map_vctr(t_map map)
-{ // Map parsing tester
+void	print_map_vctr(t_map map) // Map parsing tester
+{
 	size_t	c;
 	size_t	r;
 

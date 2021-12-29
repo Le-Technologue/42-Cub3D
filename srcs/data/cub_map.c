@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/20 10:41:09 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 02:12:08 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_error	cub_map(t_game *game, t_newline *nl)
 	size_t	line_len;
 	t_error	error;
 
-	if (!is_map_elem(*nl->line)) // skip over cub data lines
+	if (!is_map_elem(*nl->line))
 		return (CLEAR);
 	i = 0;
 	error = CLEAR;
