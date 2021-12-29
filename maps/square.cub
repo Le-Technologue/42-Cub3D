@@ -1,0 +1,13 @@
+NO ./wad/wall.xpm
+SO ./wad/hellwall.xpm
+WE ./wad/skullwall.xpm
+EA ./wad/platform.xpm
+
+C 220,100,0
+F 101,87,97
+
+11111
+10001
+10N01
+10001
+11111
