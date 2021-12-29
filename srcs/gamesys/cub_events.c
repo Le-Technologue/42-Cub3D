@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 10:46:04 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 02:08:54 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 11:06:16 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ static int	cub_key_release(int keycode, t_input *key)
 		key[LFT].held = false;
 	else if (keycode == RGT_K)
 		key[RGT].held = false;
-	else if (keycode == W_KEY)
+	else if (keycode == W_KEY || keycode == UP_KY)
 		key[W].held = false;
 	else if (keycode == A_KEY)
 		key[A].held = false;
-	else if (keycode == S_KEY)
+	else if (keycode == S_KEY || keycode == DWN_K)
 		key[S].held = false;
 	else if (keycode == D_KEY)
 		key[D].held = false;

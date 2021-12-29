@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:08:27 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 02:09:53 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 10:49:26 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	cub_set_pixel(t_fov *fov, int col, int row, int color)
 
 void	draw_ray(t_fov *fov, t_game *game, t_ray *ray, size_t x)
 {
-	size_t	y;
+	int	y;
 	float	wx;
-	size_t	tx;
-	size_t	ty;
+	int	tx;
+	int	ty;
 	t_txtr	*texture;
 
 	y = 0;
@@ -52,7 +52,7 @@ void	draw_ray(t_fov *fov, t_game *game, t_ray *ray, size_t x)
 		cub_set_pixel(fov, x, y++,
 			texture->img.addr[(ty * texture->width) + tx]);
 	}
-	while (y < fov->height)
+	while ((size_t)y < fov->height)
 		cub_set_pixel(fov, x, y++, *(int *)game->data[FLO].ctnt);
 }
 

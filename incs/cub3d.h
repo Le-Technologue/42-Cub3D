@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 02:06:58 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 10:47:01 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ typedef struct s_ray {
 	t_cub_key	side;
 	bool		hit;
 	float		wall_dist;
-	size_t		bottom;
-	size_t		top;
+	int		bottom;
+	int		top;
 }	t_ray;
 
 // CAMERA: necessary vectors to aim our rays and render our view,
