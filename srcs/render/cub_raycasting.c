@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 17:09:18 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 15:00:36 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 16:16:08 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static void	set_ray_spread(t_fov *fov, t_ray *ray)
 
 	ray_height = fov->height / ray->wall_dist;
 	ray->top = -ray_height / 2 + fov->height / 2;
-	/* if (ray->top >= fov->height) */
-	/* 	ray->top = 0; */
+	if (ray->top < 0)
+		ray->top = 0;
 	ray->bottom = ray_height / 2 + fov->height / 2;
-	/* if (ray->bottom >= fov->height) */
-	/* 	ray->bottom = fov->height - 1; */
+	if ((size_t)ray->bottom >= fov->height)
+		ray->bottom = fov->height - 1;
 }
 
 static void	normalize_wall_dist(t_cam *cam, t_ray *ray)

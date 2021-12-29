@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:58:42 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 11:53:33 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 16:09:00 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	rotate_cam(t_cam *cam, t_fov *fov, t_move direction)
 	float	prv_pln_x;
 	float	rot_speed;
 
-	rot_speed = ((float)fov->width * 2) / 40000.0;
+	rot_speed = (float)fov->width / 40000.0;
 	if (direction == RTWD)
 		rot_speed = -rot_speed;
 	prv_dir_x = cam->dir.x;
@@ -47,9 +47,11 @@ void	move_cam(t_cam *cam, t_game *game, t_move move)
 		orientation = -1;
 	target.x = cam->pos.x + (axis.x * MOVE_SPEED) * orientation;
 	target.y = cam->pos.y + (axis.y * MOVE_SPEED) * orientation;
-	if (*tile(&game->map, (size_t)target.x, (size_t)cam->pos.y) != WALL)
+	if (*tile(&game->map, (size_t)target.x + THRESHOLD,
+				(size_t)cam->pos.y) != WALL)
 		cam->pos.x = target.x;
-	if (*tile(&game->map, (size_t)cam->pos.x, (size_t)target.y) != WALL)
+	if (*tile(&game->map, (size_t)cam->pos.x,
+				(size_t)target.y + THRESHOLD) != WALL)
 		cam->pos.y = target.y;
 }
 
