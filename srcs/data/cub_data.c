@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 02:11:44 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 12:03:50 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static t_error	color(t_game *game, t_cub_key elem, char *line)
 	if (!trgb)
 		return (MEM_ALLOC);
 	game->data[elem].ctnt = trgb;
+	*trgb = 0;
 	line += 2;
 	octet = 3;
 	error = CLEAR;
@@ -72,7 +73,7 @@ static t_error	color(t_game *game, t_cub_key elem, char *line)
 		if (buf < 0 || buf > 255 || (octet > 0 && *line != ',')
 			|| (octet == 0 && *line != '\0'))
 			error = PARSE;
-		*trgb = buf << octet * 8;
+		*trgb |= (buf << octet * 8);
 		line++;
 	}
 	if (error)
