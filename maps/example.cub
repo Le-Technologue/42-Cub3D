@@ -1,7 +1,7 @@
 NO ./wad/wall.xpm
-SO ./wad/wall.xpm
-WE ./wad/wall.xpm
-EA ./wad/wall.xpm
+SO ./wad/hellwall.xpm
+WE ./wad/skullwall.xpm
+EA ./wad/platform.xpm
 
 F 220,100,0
 C 225,30,0
