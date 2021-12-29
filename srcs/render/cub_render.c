@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:08:27 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 10:49:26 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 00:35:17 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void	draw_ray(t_fov *fov, t_game *game, t_ray *ray, size_t x)
 	{
 		ty = (y - ray->top) * texture->height / (ray->bottom - ray->top);
 		tx = wx * texture->width;
+		/* if (((ray->side == EAS || ray->side == WES) && ray->dir.x > 0) */
+		/* 		|| ((ray->side == NOR || ray->side == SOU) && ray->dir.y < 0)) */
+		/* 	tx = texture->width - tx - 1; */
 		cub_set_pixel(fov, x, y++,
 			texture->img.addr[(ty * texture->width) + tx]);
 	}

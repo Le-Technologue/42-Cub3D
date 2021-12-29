@@ -1,7 +1,7 @@
-NO ./wad/wall.xpm
-SO ./wad/hellwall.xpm
-WE ./wad/skullwall.xpm
-EA ./wad/platform.xpm
+NO ./wad/north.xpm
+SO ./wad/south.xpm
+WE ./wad/west.xpm
+EA ./wad/east.xpm
 
 C 220,100,0
 F 101,87,97

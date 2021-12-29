@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 17:09:18 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 16:16:08 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 00:34:40 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,20 @@ void	cast_rays(t_fov *fov, t_cam *cam, t_game *game)
 	while (x < fov->width)
 	{
 		ray.hit = false;
-		cam->pixel_x = ((2 * x) / (float)fov->width) - 1; //init
+		cam->pixel_x = ((2 * x) / (double)fov->width) - 1; //init
+		/* ray.dir.x = 0; */
+		/* ray.dir.y = 0; */
+		/* ray.step.x = 0; */
+		/* ray.step.y = 0; */
+		/* ray.delta.x = 0; */
+		/* ray.delta.y = 0; */
+		/* ray.trvl_along.x = 0; */
+		/* ray.trvl_along.y = 0; */
+		/* ray.reached.col = 0; */
+		/* ray.reached.row = 0; */
+		/* ray.wall_dist = 0; */
+		/* ray.bottom = 0; */
+		/* ray.bottom = 0; */
 		ray.dir.x = cam->dir.x + cam->pln.x * cam->pixel_x;
 		ray.dir.y = cam->dir.y + cam->pln.y * cam->pixel_x;
 		ray.reached.col = (size_t)cam->pos.x;
