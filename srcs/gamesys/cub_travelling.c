@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:58:42 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/28 12:11:44 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 11:53:33 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,9 @@ void	set_camera(t_cam *cam, t_plyr *plyr)
 
 	cam->pos.x = (float)plyr->pos.col + 0.5;
 	cam->pos.y = (float)plyr->pos.row + 0.5;
-	if (plyr->orientation == PL_N || plyr->orientation == PL_W)
+	cam_orientation = 1;
+	if (plyr->orientation == PL_N || plyr->orientation == PL_E)
 		cam_orientation = -1;
-	else
-		cam_orientation = 1;
 	if (plyr->orientation == PL_N || plyr->orientation == PL_S)
 	{
 		cam->dir.x = 0;
@@ -72,9 +71,13 @@ void	set_camera(t_cam *cam, t_plyr *plyr)
 	}
 	else
 	{
-		cam->dir.x = 1 * cam_orientation;
+		cam->dir.x = 1;
+		if (plyr->orientation == PL_W)
+			cam->dir.x = -1;
 		cam->dir.y = 0;
 		cam->pln.x = 0;
-		cam->pln.y = 0.66 * cam_orientation;
+		cam->pln.y = -0.66;
+		if (plyr->orientation == PL_W)
+			cam->pln.y = 0.66;
 	}
 }
