@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 10:46:04 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 11:06:16 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 13:04:19 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ static int	cub_key_press(int keycode, t_game *game)
 		game->key[LFT].held = true;
 	else if (keycode == RGT_K)
 		game->key[RGT].held = true;
-	else if (keycode == W_KEY)
+	else if (keycode == W_KEY || keycode == UP_KY)
 		game->key[W].held = true;
 	else if (keycode == A_KEY)
 		game->key[A].held = true;
-	else if (keycode == S_KEY)
+	else if (keycode == S_KEY || keycode == DWN_K)
 		game->key[S].held = true;
 	else if (keycode == D_KEY)
 		game->key[D].held = true;
