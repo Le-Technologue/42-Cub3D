@@ -1,4 +1,4 @@
-NO ./wad/wall.xp
+NO ./wad/wall.xpm
 SO ./wad/hellwall.xpm
 WE ./wad/skullwall.xpm
 EA ./wad/platform.xpm
