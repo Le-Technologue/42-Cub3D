@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 14:07:16 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 16:47:10 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static t_error	textr(t_game *game, t_cub_key elem, char *line)
 			&txtr->width, &txtr->height);
 	if (!txtr->img.ptr)
 	{
-		ft_printf("\"%s\" isn't a valid xpm file or doesn't exists.", &line[3]);
+		ft_printf("Error :\n\"%s\" isn't a valid xpm file or doesn't exists.",
+			&line[3]);
 		free(txtr);
 		return (PARSE);
 	}
