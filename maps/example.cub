@@ -3,7 +3,7 @@ SO ./wad/hellwall.xpm
 WE ./wad/skullwall.xpm
 EA ./wad/platform.xpm
 
-C 220,100,0
+C 22,15,28
 F 101,87,97
 
         1111111111111111111111111

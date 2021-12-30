@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 01:49:37 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 13:04:30 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static t_error	cub_launch_game(t_game *game, t_fov *fov)
 	fov->width = RESOL_WID;
 	fov->height = RESOL_HEI;
 	game->fov = fov;
-	// SCALE GRAPHICS ?
 	fov->mlx.win = mlx_new_window(fov->mlx.lnk, fov->width, fov->height,
 			"cub3D");
 	if (!fov->mlx.win)
@@ -80,7 +79,7 @@ t_error	cub_gnl_loop(t_game *game, t_cub_reader mode, t_newline *nl)
 
 	error = CLEAR;
 	nl->count = 0;
-	game->map.rows = 0; //count rows twice as we parse for plyr positioning
+	game->map.rows = 0;
 	while (!error)
 	{
 		nl->status = get_next_line(nl->fd, &nl->line);
