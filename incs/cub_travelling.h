@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:58:25 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 11:37:06 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 13:54:02 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ typedef enum e_move {
 	RTWD
 }	t_move;
 
-void	rotate_cam(t_cam *cam, t_fov *fov, t_move direction);
-void	move_cam(t_cam *cam, t_game *game, t_move move);
+void	process_input(t_game *game);
 void	set_camera(t_cam *cam, t_plyr *plyr);
 
 #endif

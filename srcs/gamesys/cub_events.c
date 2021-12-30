@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 10:46:04 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 13:04:19 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 13:52:18 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,6 @@ static int	cub_close_win(t_game *game)
 {
 	cub_shutdown(game, CLEAR);
 	return (0);
-}
-
-void	process_input(t_game *game)
-{
-	if (game->key[W].held && !game->key[S].held)
-		move_cam(&game->cam, game, FRWD);
-	else if (game->key[S].held && !game->key[W].held)
-		move_cam(&game->cam, game, BKWD);
-	if (game->key[A].held && !game->key[D].held)
-		move_cam(&game->cam, game, LTWD);
-	else if (game->key[D].held && !game->key[A].held)
-		move_cam(&game->cam, game, RTWD);
-	if (game->key[LFT].held && !game->key[RGT].held)
-		rotate_cam(&game->cam, game->fov, LTWD);
-	else if (game->key[RGT].held && !game->key[LFT].held)
-		rotate_cam(&game->cam, game->fov, RTWD);
 }
 
 static int	cub_key_release(int keycode, t_input *key)

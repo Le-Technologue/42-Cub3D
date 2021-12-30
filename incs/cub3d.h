@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 02:06:24 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 13:48:23 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef enum e_cub_key {
 	CEI
 }	t_cub_key;
 
-typedef t_error	(*t_cub_parser)(t_game *game, t_cub_key elem, char *line);
+typedef t_error			(*t_cub_parser)(t_game *g, t_cub_key elem, char *line);
 
 typedef struct s_cub {
 	char			*flag;
@@ -87,8 +87,8 @@ typedef struct s_ray {
 	t_cub_key	side;
 	bool		hit;
 	float		wall_dist;
-	int		bottom;
-	int		top;
+	int			bottom;
+	int			top;
 }	t_ray;
 
 // CAMERA: necessary vectors to aim our rays and render our view,

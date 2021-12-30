@@ -6,14 +6,14 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:08:27 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 13:06:30 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 13:54:59 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "mlx.h"
 #include "cub_raycasting.h"
-#include "cub_events.h"
+#include "cub_travelling.h"
 #include "cub_render.h"
 
 void	cub_set_pixel(t_fov *fov, int col, int row, int color)
