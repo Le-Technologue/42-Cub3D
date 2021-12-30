@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:58:25 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 21:41:49 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 02:22:51 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "cub3d.h"
 
 # define MOVE_SPEED 0.05
-# define THRESHOLD 0.25
+# define THRESHOLD 0.5
 
 typedef enum e_move {
 	FRWD,

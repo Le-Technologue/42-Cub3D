@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:58:42 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 16:09:00 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 02:29:15 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	move_cam(t_cam *cam, t_game *game, t_move move)
 		axis = cam->dir;
 	else
 		axis = cam->pln;
-	if (move == FRWD || move == RTWD)
+	if (move == FRWD || move == LTWD)
 		orientation = 1;
 	else
 		orientation = -1;
