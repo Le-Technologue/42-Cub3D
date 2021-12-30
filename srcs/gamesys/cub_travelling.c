@@ -6,13 +6,26 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:58:42 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 02:29:15 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 11:36:24 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "cub_map.h"
 #include "cub_travelling.h"
+
+/* static bool	collision(t_map *map, size_t col, size_t row) */
+/* { */
+/* 	return (*tile(map, col - BUMPER, row - BUMPER) != VOID */
+/* 			|| *tile(map, col, row - BUMPER) != VOID */
+/* 			|| *tile(map, col + BUMPER, row - BUMPER) != VOID */
+/* 			|| *tile(map, col - BUMPER, row) != VOID */
+/* 			|| *tile(map, col, row) != VOID */
+/* 			|| *tile(map, col + BUMPER, row) != VOID */
+/* 			|| *tile(map, col - BUMPER, row + BUMPER) != VOID */
+/* 			|| *tile(map, col, row + BUMPER) != VOID */
+/* 			|| *tile(map, col + BUMPER, row + BUMPER) != VOID); */
+/* } */
 
 void	rotate_cam(t_cam *cam, t_fov *fov, t_move direction)
 {
@@ -21,7 +34,7 @@ void	rotate_cam(t_cam *cam, t_fov *fov, t_move direction)
 	float	rot_speed;
 
 	rot_speed = (float)fov->width / 40000.0;
-	if (direction == RTWD)
+	if (direction == LTWD)
 		rot_speed = -rot_speed;
 	prv_dir_x = cam->dir.x;
 	cam->dir.x = cam->dir.x * cos(rot_speed) - cam->dir.y * sin(rot_speed);
@@ -47,11 +60,11 @@ void	move_cam(t_cam *cam, t_game *game, t_move move)
 		orientation = -1;
 	target.x = cam->pos.x + (axis.x * MOVE_SPEED) * orientation;
 	target.y = cam->pos.y + (axis.y * MOVE_SPEED) * orientation;
-	if (*tile(&game->map, (size_t)target.x + THRESHOLD,
-				(size_t)cam->pos.y) != WALL)
+	if (*tile(&game->map, (size_t)target.x, (size_t)cam->pos.y) == VOID)
+	/* if (!collision(&game->map, (size_t)target.x, (size_t)cam->pos.y)) */
 		cam->pos.x = target.x;
-	if (*tile(&game->map, (size_t)cam->pos.x,
-				(size_t)target.y + THRESHOLD) != WALL)
+	if (*tile(&game->map, (size_t)cam->pos.x, (size_t)target.y) == VOID)
+	/* if (!collision(&game->map, (size_t)cam->pos.x, (size_t)target.y)) */
 		cam->pos.y = target.y;
 }
 
