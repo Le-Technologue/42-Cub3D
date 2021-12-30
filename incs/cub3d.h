@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 10:47:01 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 02:06:24 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_cam {
 	t_vf2d	pos;
 	t_vf2d	dir;
 	t_vf2d	pln;
-	int		pixel_x;
+	float	pixel_x;
 }	t_cam;
 
 // FIELD OF VIEW: Overarching graphic parameters to render our frame.
