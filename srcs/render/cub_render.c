@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:08:27 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 02:19:30 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 12:44:05 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_ray(t_fov *fov, t_game *game, t_ray *ray, size_t x)
 	else
 		wx = game->cam.pos.x + ray->wall_dist * ray->dir.x;
 	wx -= floor(wx);
-	while (y < ray->bottom)
+	while (y < ray->bottom && (size_t)y < fov->height)
 	{
 		ty = (y - ray->top) * texture->height / (ray->bottom - ray->top);
 		tx = wx * texture->width;
