@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 07:30:13 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 14:22:15 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 14:23:13 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,7 @@ t_error	map_breached(t_game *game)
 {
 	t_error	error;
 
-	/* ft_printf("Parsed map :\n"); //TESTING */
-	/* print_map_vctr(game->map); // TESTING */
 	error = map_fill(game->map, game->plyr.pos.col, game->plyr.pos.row, FILL);
-	/* ft_printf("Map fill :\n"); //TESTING */
-	/* print_map_vctr(game->map); //TESTING */
 	if (error)
 		return (error);
 	map_fill(game->map, game->plyr.pos.col, game->plyr.pos.row, VOID);
@@ -103,21 +99,4 @@ t_error	chk_map_prerequisites(t_game *game)
 	if (game->map.rows <= 2)
 		error = ft_err_msg("Insufficient map height.", PARSE);
 	return (error);
-}
-
-void	print_map_vctr(t_map map) // Map parsing tester
-{
-	size_t	c;
-	size_t	r;
-
-	r = 0;
-	while (r < map.rows)
-	{
-		c = 0;
-		while (c < map.cols)
-			ft_printf("%i", *tile(&map, c++, r));
-		ft_printf("\n");
-		r++;
-	}
-	ft_printf("\n");
 }
