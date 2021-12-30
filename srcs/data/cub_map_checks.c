@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 07:30:13 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 02:13:18 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 14:22:15 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,22 @@ t_error	map_breached(t_game *game)
 		return (error);
 	map_fill(game->map, game->plyr.pos.col, game->plyr.pos.row, VOID);
 	return (CLEAR);
+}
+
+t_error	chk_map_prerequisites(t_game *game)
+{
+	t_error	error;
+
+	error = CLEAR;
+	if (cub_completion(game->data) != CLEAR)
+		return (ft_err_msg("The cub file is missing data.", PARSE));
+	if (!game->map.rows)
+		return (ft_err_msg("The cub file is missing a map.", PARSE));
+	if (game->map.cols <= 2)
+		error = ft_err_msg("Insufficient map width.", PARSE);
+	if (game->map.rows <= 2)
+		error = ft_err_msg("Insufficient map height.", PARSE);
+	return (error);
 }
 
 void	print_map_vctr(t_map map) // Map parsing tester

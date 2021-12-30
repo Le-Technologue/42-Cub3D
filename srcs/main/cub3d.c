@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 13:04:30 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 14:20:40 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,21 +90,10 @@ t_error	cub_gnl_loop(t_game *game, t_cub_reader mode, t_newline *nl)
 				;
 			else
 				error = mode(game, nl);
-			free(nl->line); // are we sure of this
 		}
+		free(nl->line);
 		if (nl->status <= 0)
 			break ;
-	}
-	if (!error && mode == cub_data)
-	{
-		if (cub_completion(game->data) != CLEAR)
-			return (ft_err_msg("The cub file is missing data.", PARSE));
-		if (!game->map.rows)
-			return (ft_err_msg("The cub file is missing a map.", PARSE));
-		if (game->map.cols <= 2)
-			error = ft_err_msg("Insufficient map width.", PARSE);
-		if (game->map.rows <= 2)
-			error = ft_err_msg("Insufficient map height.", PARSE);
 	}
 	return (error);
 }
@@ -121,6 +110,8 @@ static t_error	cub_read_conf(t_game *game, const char *cub_path)
 	}
 	error = cub_gnl_loop(game, cub_data, &nl);
 	fd_killer(nl.fd);
+	if (!error)
+		error = chk_map_prerequisites(game);
 	if (error)
 		return (error);
 	if (fd_opener(cub_path, &nl.fd) != CLEAR)
@@ -144,15 +135,7 @@ int	main(int ac, char **av)
 		return (ft_err_msg("USAGE : ./cub3d <MAP_PATH>.cub", PARSE));
 	if (file_ext_chk(av[1], ".cub") != CLEAR)
 		return (ft_err_msg("Config file extension must be \".cub\"", PARSE));
-	game.data = NULL;
-	game.map_offset = 0;
-	game.map.grid = NULL;
-	game.map.cols = 0;
-	game.map.rows = 0;
-	game.plyr.exists = false;
-	fov.mlx.win = NULL;
-	fov.frm = NULL;
-	game.fov = &fov;
+	cub_data_init(&game, &fov);
 	fov.mlx.lnk = mlx_init();
 	if (!fov.mlx.lnk)
 		return (MEM_ALLOC);

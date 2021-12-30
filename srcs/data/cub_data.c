@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 13:21:35 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 14:07:16 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,17 @@ t_error	cub_data(t_game *game, t_newline *nl)
 		}
 	}
 	return (measure_map(game, nl));
+}
+
+void	cub_data_init(t_game *game, t_fov *fov)
+{
+	game->data = NULL;
+	game->map_offset = 0;
+	game->map.grid = NULL;
+	game->map.cols = 0;
+	game->map.rows = 0;
+	game->plyr.exists = false;
+	fov->mlx.win = NULL;
+	fov->frm = NULL;
+	game->fov = fov;
 }
