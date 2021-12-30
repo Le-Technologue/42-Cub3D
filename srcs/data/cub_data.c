@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 09:34:22 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/29 12:03:50 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/30 13:21:35 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static t_error	color(t_game *game, t_cub_key elem, char *line)
 	int		*trgb;
 	int		buf;
 	int		octet;
-	t_error	error;
 
 	trgb = malloc(sizeof(int));
 	if (!trgb)
@@ -66,20 +65,20 @@ static t_error	color(t_game *game, t_cub_key elem, char *line)
 	*trgb = 0;
 	line += 2;
 	octet = 3;
-	error = CLEAR;
-	while (!error && octet--)
+	while (octet--)
 	{
 		buf = ptr_atoi(&line);
 		if (buf < 0 || buf > 255 || (octet > 0 && *line != ',')
 			|| (octet == 0 && *line != '\0'))
-			error = PARSE;
+		{
+			ft_printf("Error :\n%scolor's octet %d is not sound.\n",
+				game->data[elem].flag, 3 - octet);
+			return (PARSE);
+		}
 		*trgb |= (buf << octet * 8);
 		line++;
 	}
-	if (error)
-		ft_printf("Error :\n%scolor's octet %d is not sound.\n",
-			game->data[elem].flag, octet);
-	return (error);
+	return (CLEAR);
 }
 
 t_error	cub_data(t_game *game, t_newline *nl)
