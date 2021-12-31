@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 13:48:23 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/31 13:13:18 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 // For ft_strncmp matches
 # define MATCH 0
 
-// TILES : All the possible map bits
+// TILES : All the possible map bits, an OUTS tile for signaling when
+// we stumble outside the map, and a FILL tile to floodfill our map
+// and check it for leaks.
 # define TILE_RANGE 7
 
 typedef enum e_tile {

@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 11:29:03 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/31 12:17:39 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 t_tile	*tile(t_map *map, size_t col, size_t row)
 {
-	static t_tile	error = FILL;
+	static t_tile	error = OUTS;
 
 	if (col >= map->cols || row >= map->rows)
 		return (&error);
