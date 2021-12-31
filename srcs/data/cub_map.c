@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 11:30:59 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/31 12:17:39 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2021/12/31 13:33:59 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "cub_map.h"
 #include "cub_map_checks.h"
 
+// Accessing the 2D map grid parsed in our 1D array is done by
+// this simple formula after a boundary check to avoid illegal
+// memory access.
+// If the requested coordinates are beyond the map limits, 
+// we return an OUTS tile identifier, as those are indeed "outside" the map.
 t_tile	*tile(t_map *map, size_t col, size_t row)
 {
 	static t_tile	error = OUTS;
