@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 14:20:40 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2022/01/01 13:55:23 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "cub_map_checks.h"
 #include "cub_events.h"
 #include "cub_travelling.h"
+#include "cub_minimap.h"
 
 t_error	cub_shutdown(t_game *game, t_error cause)
 {
@@ -69,6 +70,7 @@ static t_error	cub_launch_game(t_game *game, t_fov *fov)
 	}
 	set_key_matrix(game);
 	set_camera(&game->cam, &game->plyr);
+	scale_minimap(fov, &game->map);
 	cub_run_hooks(game);
 	return (CLEAR);
 }

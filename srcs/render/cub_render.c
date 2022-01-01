@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 14:08:27 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 13:54:59 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2022/01/01 13:46:18 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "mlx.h"
 #include "cub_raycasting.h"
 #include "cub_travelling.h"
+#include "cub_minimap.h"
 #include "cub_render.h"
 
 void	cub_set_pixel(t_fov *fov, int col, int row, int color)
@@ -59,6 +60,7 @@ void	draw_ray(t_fov *fov, t_game *game, t_ray *ray, size_t x)
 int	cub_render_frame(t_game *game)
 {
 	cast_rays(game->fov, &game->cam, game);
+	draw_map(game->fov, &game->cam, &game->map);
 	mlx_put_image_to_window(game->fov->mlx.lnk, game->fov->mlx.win,
 		game->fov->frm->ptr, 0, 0);
 	process_input(game);
