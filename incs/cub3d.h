@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:26 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/31 13:13:18 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2022/01/01 13:00:57 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ typedef struct s_fov {
 	size_t	height;
 	size_t	width;
 	t_img	*frm;
+	size_t	map_tile_hei;
+	size_t	map_tile_wid;
 }	t_fov;
 
 // GAME : All encompassing, game system data structure
