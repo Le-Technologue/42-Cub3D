@@ -1,6 +1,3 @@
-[submodule "libs/libft"]
-	path = libs/libft
-	url = git@gitlab.com:42cursus-wetieven/01-libft.git
 [submodule "rsrc/slg_wetieven"]
 	path = rsrc/slg_wetieven
 	url = git@gitlab.com:42cursus-wetieven/25-so-long.git
