@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:43:29 by wetieven          #+#    #+#             */
-/*   Updated: 2022/01/01 13:55:23 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2022/01/04 13:19:41 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_error	cub_gnl_loop(t_game *game, t_cub_reader mode, t_newline *nl)
 
 	error = CLEAR;
 	nl->count = 0;
+	nl->line = NULL;
 	game->map.rows = 0;
 	while (!error)
 	{
@@ -93,6 +94,9 @@ t_error	cub_gnl_loop(t_game *game, t_cub_reader mode, t_newline *nl)
 			else
 				error = mode(game, nl);
 		}
+		if (!nl->line)
+			return (ft_err_msg("There's something fishy with that cub file...",
+					PARSE));
 		free(nl->line);
 		if (nl->status <= 0)
 			break ;
