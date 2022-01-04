@@ -6,7 +6,7 @@
 /*   By: wetieven <wetieven@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 07:30:13 by wetieven          #+#    #+#             */
-/*   Updated: 2021/12/30 14:23:13 by wetieven         ###   ########lyon.fr   */
+/*   Updated: 2022/01/04 09:13:00 by wetieven         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ t_error	map_breached(t_game *game)
 {
 	t_error	error;
 
+	if (!game->plyr.exists)
+		return (ft_err_msg("You need a player on the map if you wish to play.",
+				PARSE));
 	error = map_fill(game->map, game->plyr.pos.col, game->plyr.pos.row, FILL);
 	if (error)
 		return (error);
