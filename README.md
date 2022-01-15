@@ -9,6 +9,14 @@ Here it is, with textures sourced from Doom WADs, credit to id Software for thes
 Because a far fetched notion of what it takes to be a "proper" engineer apparently involves agonizing over some maths... or at least be able to get them to work for your problems.
 
 ## Usage
+- Switch to macOS-evaluated or linux-dev branch accordingly to your OS.
+- On linux-dev branch, update the libft submodule.
+- Compile using make
+- ./cub3D [map path]
+
+There are some map files inside the /maps folder, you can modify those using a text editor.
+
+Some xpm textures are stored inside the /wad folder. You can replace or modify those as well.
 
 ## Constraints ~
 No OpenGL, no SDL... just a spartan homebrewed graphics lib from 42 school with rudimentary window and events management... and the ability to print a single pixel to a screen or a buffer.
@@ -21,19 +29,24 @@ As a former student of the history of technology, I was more enthusiastic about 
 A lesson in craftiness, sobriety and optimisation... also Doom was my first video game so it was exciting to get a peek under its hood !
 
 ## Technique ~
-Vectorial 2D raycasting, as featured in lodev's ubiquital reference on the subject (https://lodev.org/cgtutor/raycasting.html).
+Vectorial 2D DDA raycasting, as featured in lodev's ubiquital reference on the subject (https://lodev.org/cgtutor/raycasting.html).
 
-As I have a mental block on mathematics and lack culture on the matter as well, I felt the elemental logic of vectors was much more concrete and approachable than the lingo laden angle calculations of some other methods (https://www.youtube.com/watch?v=eOCQfxRQ2pY).
+As I have a mental block on mathematics and lack culture on the matter as well, I felt the elemental logic of vectors much more concrete and approachable than the lingo laden angle calculations of some other methods (https://www.youtube.com/watch?v=eOCQfxRQ2pY).
 
-## Implementation ~ 
+## Implementation ~
+Parsing of the map is done in a 1D array, thanks to some homespun data structures, and my own implementation of a vector data structure in C. Thus, a single malloc is needed for the whole map to be parsed, which makes memory management a breeze, and allows us to greatly benefit from the processor cache.
+
+The different map tiles are coded by an enum, including the space outside the map.
+
+Access to the map tiles is solely done through a dedicated function which returns an OUTS enum identifier if we get out of bounds, strictly preventing illegal memory accesses.
+
+I never did object oriented programming before, but I'm starting to see the appeal through the many structures I had to devise through this project. A homespun bottom up, "proto-class" is even found in the array of function pointers used to parse the configuration ".cub" file. This array is made from a structure comprising the function pointer necessary to parse some parameter next to a void* ready to hold its retrieved data.
 
 ## Bonuses ~
 #### Collisions
 Easily implemented thanks to the design choices explained above. Also seemed the easiest way to avoid segmentation faults from the get go.
 
 #### Minimap
-A breeze thanks to the scaling calculations used earlier in the so_long 2D, top down maze game project and a nifty design choice :
+A breeze thanks to the scaling calculations used earlier in the "so_long" project (a 2D, top down maze game) and a nifty design choice : I chose to round the actual position of the camera (a float) to and int thanks to a cast.
 
-I chose to round the actual position of the camera (a float) to and int thanks to a cast.
-
-The position of the player is then reduced to the map tile he is currently in, BUT it saved me from additional calculations. It is rudimentary, but turns out to be useful for debugging collisions, and super cute as well!
+The position of the player is then reduced to the map tile he is currently in, but it saved me from additional calculations. It is certainly rudimentary, but plenty functional to navigate this "game". Moreover it turns out to be useful for debugging collisions, and super cute as well!
