@@ -47,6 +47,6 @@ I never did object oriented programming before, but I'm starting to see the appe
 Easily implemented thanks to the design choices explained above. Also seemed the easiest way to avoid segmentation faults from the get go.
 
 #### Minimap
-A breeze thanks to the scaling calculations used earlier in the "so_long" project (a 2D, top down maze game) and a nifty design choice : I chose to round the actual position of the camera (a float) to and int thanks to a cast.
+A breeze thanks to the scaling calculations used earlier in the "so_long" project (a 2D, top down maze game) and a nifty design choice : I chose to round the actual position of the camera (a 2D float vector) to a 2D int vector thanks to some casts.
 
 The position of the player is then reduced to the map tile he is currently in, but it saved me from additional calculations. It is certainly rudimentary, but plenty functional to navigate this "game". Moreover it turns out to be useful for debugging collisions, and super cute as well!
