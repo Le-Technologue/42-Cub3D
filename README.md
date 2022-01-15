@@ -10,7 +10,7 @@ Because a far fetched notion of what it takes to be a "proper" engineer apparent
 
 ## Usage
 - Switch to macOS-evaluated or linux-dev branch accordingly to your OS.
-- On linux-dev branch, update the libft submodule.
+  - On linux-dev branch, update the libft submodule.
 - Compile using make
 - ./cub3D [map path]
 
