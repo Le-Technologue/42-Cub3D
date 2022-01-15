@@ -5,7 +5,6 @@ a.out*
 *.a
 *.d
 *.vim
-*test*
 tags
 todo.md
 cub3D
