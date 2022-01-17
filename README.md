@@ -34,13 +34,13 @@ Vectorial 2D DDA raycasting, as featured in lodev's ubiquital reference on the s
 As I have a mental block on mathematics and lack culture on the matter as well, I felt the elemental logic of vectors much more concrete and approachable than the lingo laden angle calculations of some other methods (https://www.youtube.com/watch?v=eOCQfxRQ2pY).
 
 ## Implementation ~
-Parsing of the map is done in a 1D array, thanks to some homespun data structures, and my own implementation of a vector data structure in C. Thus, a single malloc is needed for the whole map to be parsed, which makes memory management a breeze, and allows us to greatly benefit from the processor cache.
+Parsing of the map is done in a 1D array, thanks to some homespun data structures, and my own implementation of a vector data structure in C. Thus, a single malloc is needed for the whole map to be parsed, smoothing up memory management, and allowing us to greatly benefit from the processor cache.
 
 The different map tiles are coded by an enum, including the space outside the map.
 
 Access to the map tiles is solely done through a dedicated function which returns an OUTS enum identifier if we get out of bounds, strictly preventing illegal memory accesses.
 
-I never did object oriented programming before, but I'm starting to see the appeal through the many structures I had to devise through this project. A homespun bottom up, "proto-class" is even found in the array of function pointers used to parse the configuration ".cub" file. This array is made from a structure comprising the function pointer necessary to parse some parameter next to a void* ready to hold its retrieved data.
+I never did object oriented programming before, but I'm starting to see its appeal through the many structures I had to devise during this project. A homespun bottom up, "proto-class" is even found in the array of function pointers used to parse the configuration ".cub" file. This array is made from a structure comprising the function pointer necessary to parse some parameter next to a void* ready to hold its retrieved data.
 
 ## Bonuses ~
 #### Collisions
