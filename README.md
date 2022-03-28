@@ -34,7 +34,7 @@ Vectorial 2D DDA raycasting, as featured in lodev's ubiquital reference on the s
 As I have a mental block on mathematics and lack culture on the matter as well, I felt the elemental logic of vectors much more concrete and approachable than the lingo laden angle calculations of some other methods (https://www.youtube.com/watch?v=eOCQfxRQ2pY).
 
 ## Implementation ~
-Parsing of the map is done in a 1D array, thanks to some homespun data structures, and my own implementation of a vector data structure in C. Thus, a single malloc is needed for the whole map to be parsed, smoothing up memory management, and allowing us to greatly benefit from the processor cache.
+Parsing of the map is done in a 1D array, thanks to some homespun data structures, and my own implementation of a vector data structure in C. Thus, a single malloc is needed for the whole map to be parsed, smoothing up memory management, allowing us to greatly benefit from the processor cache thanks to data locality.
 
 The different map tiles are coded by an enum, including the space outside the map.
 
